@@ -1,11 +1,11 @@
 import { Box, Image } from "@chakra-ui/react";
 
-export default function Hand  ({cards}) {
+export default function Hand  ({numberOfCards}) {
     const spacing=20;
-    const handWidth = 55 + spacing * cards.length;
+    const handWidth = 55 + spacing * numberOfCards;
     const renderCards = () => {
-      
-  
+    const cards = Array.from({ length: numberOfCards });
+
       return cards.map((_, index) => {
         const space = (index) * spacing;
   

@@ -11,7 +11,7 @@ const colors = {
     600: '#004B98',
     300: '#3DB5E6',
     grey: '#C8C8C8',
-    green: '#61BF1A',
+    green: '#1E5C3A',
     red: '#E1261C',
   },
 }
