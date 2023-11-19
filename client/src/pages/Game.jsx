@@ -1,27 +1,25 @@
 import {Box} from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-// import GameService from '../services/gameService';
+import { useEffect, useState } from 'react';
+import ApiService from '../services/apiService';
 
 export default function Game() {
-    const [data, setData] = useState({});
-
+    const [summary, setSummary] = useState({});
+    const [gameState, setGameState] = useState({});
     
+
     useEffect(() => {
+        const getGameState = async () => {setGameState( await ApiService.getGameState({}))};
+        getGameState()
+        console.log(gameState)
+        
         const intervalId = setInterval(() => {
-            axios.post('http://localhost:8000/getRound', {})
-            .then(response => {
-                console.log(response.data); 
-                setData(response.data)
-                if (data.seat == -1){
-                    console.log("Game Over")
-                    clearInterval(intervalId);
-                }
-            
-            })
-            .catch(error => {
-                console.error(error); 
-            });
+            const playRound = async () => {
+                setSummary( await ApiService.playRound({}))
+                if (summary.seat == -1){clearInterval(intervalId)}
+
+            };
+            playRound()
+            console.log(summary)
         }, 1000);
         
         // Clear the interval when the component unmounts
@@ -32,7 +30,6 @@ export default function Game() {
 
     return(
         <Box bg="brand.600" style = {{flex: 1}} h="90vh">
-            {`${data.books}`}
         </Box>
     );
 }
