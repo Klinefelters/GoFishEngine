@@ -1,12 +1,19 @@
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Image, Spacer, Flex } from "@chakra-ui/react";
 
-export default function Hand  ({cards, index}) {
+
+export default function Book  ({rank}) {
+    const cards = [
+        {rank:`${rank}`, suit:"diamonds"},
+        {rank:`${rank}`, suit:"hearts"},
+        {rank:`${rank}`, suit:"clubs"},
+        {rank:`${rank}`, suit:"spades"},
+    ];
     const spacing=20;
     const handWidth = 55 + spacing * cards.length;
     const renderCards = () => {
       
   
-      return cards.map((_, index) => {
+      return cards.map((card, index) => {
         const space = (index) * spacing;
   
         const cardStyle = {
@@ -24,9 +31,7 @@ export default function Hand  ({cards, index}) {
         return (
           <Image
             key={index}
-            // src={`playing-cards/${card.rank}_of_${card.suit}.png`}
-            src={"card-backs/default.png"}
-            alt={`Card ${index}`}
+            src={`playing-cards/${card.rank}_of_${card.suit.toLowerCase()}.png`}
             style={cardStyle}
           />
         );
@@ -34,8 +39,12 @@ export default function Hand  ({cards, index}) {
     };
   
     return (
-    <Box key={index} style={{ position: 'relative', width: `${handWidth}px`, height: '150px' }}>
-        {renderCards()}
-    </Box>
+        <Flex>
+            <Spacer />
+            <Box style={{ position: 'relative', width: `${handWidth}px`, height: '150px' }}>
+                {renderCards()}
+            </Box>
+            <Spacer />
+        </Flex>
     );
   };

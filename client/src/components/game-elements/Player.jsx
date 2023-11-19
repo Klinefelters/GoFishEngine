@@ -3,7 +3,7 @@ import { Avatar, Box, Flex, Spacer } from "@chakra-ui/react";
 
 export default function Player ({cards, name}) {
     return(
-        <Box>
+        <Box >
         <Flex>
             <Spacer/>
             <Avatar name={name}/>
