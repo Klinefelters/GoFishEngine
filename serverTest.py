@@ -1,17 +1,19 @@
 from gofish.api import genApp
 from gofish import Engine
 from examplePlayers.randPlayer import RandPlayer
+from logging import DEBUG
 
 engine = Engine(
     players=[
-        RandPlayer("Random"),
-        RandPlayer("User"),
-        # TestPlayer("Player2"),
-        # TestPlayer("Player3"),
-        # TestPlayer("Player4"),
-        # TestPlayer("Player5"),
-        # TestPlayer("Player6"),
-    ]
+        RandPlayer("Random 1"),
+        RandPlayer("Random 2"),
+        RandPlayer("Random 3"),
+        RandPlayer("Random 4"),
+        RandPlayer("Random 5"),
+        RandPlayer("Random 6"),
+        RandPlayer("Random 7"),
+    ],
+    # logLevel=DEBUG
 )
 
 app = genApp(engine)

@@ -12,7 +12,6 @@ def genBlueprint(engine: Engine) -> Blueprint:
         try:
             tmp = next(engine.yieldGame())
             message = tmp.getDict()
-            print(message['busted'])
         except StopIteration:
             message = {"seat": -1}
 

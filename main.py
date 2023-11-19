@@ -6,19 +6,20 @@ from logging import DEBUG, INFO
 def main() -> None:
     engine = Engine(
         players=[
-            RandPlayer("Random"),
-            RandPlayer("Random2"),
-            # RandPlayer("Player2"),
-            # RandPlayer("Player3"),
-            # RandPlayer("Player4"),
-            # RandPlayer("Player5"),
-            # RandPlayer("Player6"),
+            RandPlayer("Random 0"),
+            RandPlayer("Random 1"),
+            RandPlayer("Player2"),
+            RandPlayer("Player3"),
+            RandPlayer("Player4"),
+            RandPlayer("Player5"),
+            RandPlayer("Player6"),
         ],
         logLevel=INFO)
 
     # engine.playGame()
     # engine.evaluatePlayers(runs=100)
-    for summary in engine.yieldGame():
+    while True:
+        summary = next(engine.yieldGame())
         print(summary.getDict())
         input()
 

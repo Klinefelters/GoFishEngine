@@ -83,14 +83,14 @@ class Engine:
         During a round, each player takes their turn, requests a card from other players,
         and collects any cards they receive. The results of each turn are printed.
         """
-        while all([len(hand.cards) > 0 for hand in self.gameState.hands]):
-            for i, player in enumerate(self.players):
-
-                while True:
-                    summary = self._playTurn(player, i)
-                    yield summary
-                    if summary.busted:
-                        break
+        while len(self.gameState.books) < 13:
+            seat = self.gameState.currentSeat
+            summary = self._playTurn(self.players[seat], seat)
+            if summary.busted:
+                self.gameState.currentSeat += 1
+                if self.gameState.currentSeat > self.numPlayers - 1:
+                    self.gameState.currentSeat = 0
+            yield summary
 
     def playGame(self) -> None:
         """
@@ -99,8 +99,9 @@ class Engine:
         During a round, each player takes their turn, requests a card from other players,
         and collects any cards they receive. The results of each turn are printed.
         """
-        while all([len(hand.cards) > 0 for hand in self.gameState.hands]):
+        while len(self.gameState.books) < 13:
             for i, player in enumerate(self.players):
+                self.gameState.currentSeat = i
 
                 while True:
                     summary = self._playTurn(player, i)
