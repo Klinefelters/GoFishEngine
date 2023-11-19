@@ -3,7 +3,7 @@ import { FaHome } from 'react-icons/fa';
 import Navbar from "./navbar/Navbar"
 import { NavLink } from "react-router-dom"
 
-export default function Topbar() {
+export default function Header() {
 
   return (
     <Flex as="nav" p="5px" bg = "brand.900" h="10vh">
