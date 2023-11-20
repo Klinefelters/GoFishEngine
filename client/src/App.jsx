@@ -48,8 +48,10 @@ export default function App() {
 					getGameState()
 					if (summary.seat == -1){(await ApiService.resetGame({}))}
 				};
-				if (!welcomeIsOpen || !settingsIsOpen){
-				playRound()
+				if (welcomeIsOpen || settingsIsOpen){
+					return;
+				}else{
+					playRound();
 				}
 		}, settings.sliders.tickInterval.val);
 
