@@ -1,7 +1,7 @@
 import Hand from "./Hand";
 import { Avatar, Box, Flex, Spacer } from "@chakra-ui/react";
 
-export default function Player ({cards, name, src}) {
+export default function Player ({cards, name, src, size}) {
 	return(
 		<Box >
 		<Flex>
@@ -11,7 +11,7 @@ export default function Player ({cards, name, src}) {
 		</Flex>
 		<Flex>
 			<Spacer/>
-			<Hand cards={cards}/>
+			<Hand cards={cards} size={size}/>
 			<Spacer/>
 		</Flex>
 		

@@ -1,8 +1,8 @@
 import { Box, Image } from "@chakra-ui/react";
 
-export default function Hand  ({cards, index}) {
+export default function Hand  ({cards, index, size}) {
 		const spacing=20;
-		const handWidth = 55 + spacing * cards.length;
+		const handWidth = size*2/3 + spacing * cards.length;
 		const renderCards = () => {
 			
 	
@@ -14,8 +14,8 @@ export default function Hand  ({cards, index}) {
 					position: 'absolute',
 					top: '50%',
 					left: '50%',
-					width: '75px', // Adjust the size of the card images
-					height: '115px', // Adjust the size of the card images
+					width: `${size*2/3}px`,
+					height: `${size}px`,
 					marginLeft: `-${handWidth/2}px`,
 					marginTop: '-65px',
 					zIndex: index,

@@ -13,7 +13,8 @@ export default function App() {
 	const [summary, setSummary] = useState({});
 	const [settings, setSettings] = useState({
 		sliders:{
-			tickInterval: {val:2000, min:500, max:2000, step:10, label:'Tick Interval', ref:"tickInterval"},
+			tickInterval: {val:2000, min:500, max:2000, step:10, label:'Tick Interval (ms)', ref:"tickInterval"},
+			cardSize: {val:100, min:10, max:200, step:1, label:'Card Size (px)', ref:"cardSize"},
 		},
 	});
 	const [gameState, setGameState] = useState({
@@ -70,8 +71,8 @@ export default function App() {
 		) : (
 			<>
 			<Flex bg="brand.300" style = {{flex: 1}} h="100vh" >
-					<Table gameState={gameState}/>
-					<Sidebar gameState={gameState}/>
+					<Table gameState={gameState} settings={settings}/>
+					<Sidebar gameState={gameState} settings={settings}/>
 			</Flex>
 			<Welcome onClose={welcomeClose} isOpen={welcomeIsOpen} />
 			<Settings settings={settings} setSettings={setSettings} onClose={settingsClose} isOpen={settingsIsOpen} />

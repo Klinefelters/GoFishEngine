@@ -1,7 +1,7 @@
 import { Box, Image, Spacer, Flex, Avatar } from "@chakra-ui/react";
 
 
-export default function Book  ({rank, style, player}) {
+export default function Book  ({rank, style, player, size}) {
 	const cards = [
 			{rank:`${rank}`, suit:"diamonds"},
 			{rank:`${rank}`, suit:"hearts"},
@@ -21,8 +21,8 @@ export default function Book  ({rank, style, player}) {
 				position: 'absolute',
 				top: '50%',
 				left: '50%',
-				width: '75px', // Adjust the size of the card images
-				height: '115px', // Adjust the size of the card images
+				width: `${size*2/3}px`,
+				height: `${size}px`,
 				marginLeft: `-${handWidth/2}px`,
 				marginTop: '-65px',
 				zIndex: index,
