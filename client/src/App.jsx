@@ -1,4 +1,4 @@
-import {Flex, Spinner, CSSReset, useDisclosure} from '@chakra-ui/react';
+import {Flex, Spinner, useDisclosure} from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import ApiService from './services/apiService';
 import Table from './components/game-elements/Table';
@@ -62,8 +62,6 @@ export default function App() {
 
 	return(
 		<>
-		<CSSReset />
-
 		{loading ? (
 			// Display the loading module while the page is still loading
 			<Flex align="center" justify="center" height="100vh" backgroundColor="gray.100">

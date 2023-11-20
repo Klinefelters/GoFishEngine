@@ -8,7 +8,7 @@ export default function Table({ gameState }) {
 		const renderFirstPlayers = () => {
 			return gameState.hands.map((hand, index) => {
 				if (index < numPlayers / 2) {
-					return <Player key={index} cards={hand.cards} name={`player ${index + 1}`} />;
+					return <Player key={index} cards={hand.cards} name={`player ${index + 1}`} src={`players/player${index + 1}.png`} />;
 				} else {
 					return null;
 				}
@@ -18,7 +18,7 @@ export default function Table({ gameState }) {
 		const renderLastPlayers = () => {
 			return gameState.hands.map((hand, index) => {
 				if (index >= numPlayers / 2) {
-					return <Player key={index} cards={hand.cards} name={`player ${index + 1}`} />;
+					return <Player key={index} cards={hand.cards} name={`player ${index + 1}`} src={`players/player${index + 1}.png`} />;
 				} else {
 					return null;
 				}
