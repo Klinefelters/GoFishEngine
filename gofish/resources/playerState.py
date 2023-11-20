@@ -25,7 +25,7 @@ class PlayerState:
     hand: Hand = Factory(Hand)
     validRanks: List[str] = Factory(list)
     publicHands: List[Hand] = Factory(list)
-    pool: Pool = Factory(Pool)
+    pool: int = 0
     books: List[Book] = Factory(list)
     history: History = Factory(History)
     currentSeat: int = 0

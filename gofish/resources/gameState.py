@@ -43,7 +43,7 @@ class GameState:
             hand=Hand(self.hands[player_index].cards.copy()),  # Copy the Hand
             validRanks=list(set(allRanks)),
             publicHands=self.publicHands.copy(),  # Copy the public information
-            pool=Pool(cards=[]),  # Send Empty Pool
+            pool=len(self.pool.cards),  # Send Empty Pool
             books=self.books.copy(),  # Copy the books
             history=History(
                 self.history.requests.copy(),
