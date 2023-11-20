@@ -3,17 +3,17 @@ import Book from "./Book";
 
 export default function Books ({books}){
 
-    const renderBooks = () => {
-        return books.map((book, index) => {
-            return (
-            <Book key={index} rank={book.rank}/>
-            );
-        });
-    };
+	const renderBooks = () => {
+		return books.map((book, index) => {
+			return (
+			<Book key={index} rank={book.rank}/>
+			);
+		});
+	};
 
-    return(
-        <Box>
-            {renderBooks()}
-        </Box>
-    );
+	return(
+		<Box>
+			{renderBooks()}
+		</Box>
+	);
 }

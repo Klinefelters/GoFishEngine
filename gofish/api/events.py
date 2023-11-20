@@ -14,6 +14,7 @@ def genBlueprint(engine: Engine) -> Blueprint:
             message = tmp.getDict()
         except StopIteration:
             message = {"seat": -1}
+            engine.reset()
 
         return jsonify(message)
 
