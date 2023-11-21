@@ -16,6 +16,9 @@ export default function App() {
 			tickInterval: {val:2000, min:500, max:2000, step:10, label:'Tick Interval (ms)', ref:"tickInterval"},
 			cardSize: {val:100, min:10, max:200, step:1, label:'Card Size (px)', ref:"cardSize"},
 		},
+		buttons:{
+			paused: {val: false, trueLabel:'Start', falseLabel:'Pause', ref:'paused', trueColor:'green', falseColor:'red'},
+		}
 	});
 	const [gameState, setGameState] = useState({
 		pool: {cards: Array.from({ length: 38 })},
@@ -49,7 +52,7 @@ export default function App() {
 					getGameState()
 					if (summary.seat == -1){(await ApiService.resetGame({}))}
 				};
-				if (welcomeIsOpen || settingsIsOpen){
+				if (welcomeIsOpen || settingsIsOpen || settings.buttons.paused.val){
 					return;
 				}else{
 					playRound();

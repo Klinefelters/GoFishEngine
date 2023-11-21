@@ -6,18 +6,32 @@ import {
 	ModalHeader,
 } from '@chakra-ui/react'
 import SlidersContainer from './settings-elements/SlidersContainer';
+import ButtonsContainer from './settings-elements/ButtonsContainer';
 
 export default function Settings({ settings, setSettings, isOpen, onClose }) {
 
-	const handleSliderChange = (value, label) => {
+	const handleSliderChange = (value, ref) => {
     setSettings((prevSettings) => ({
       sliders: {
         ...prevSettings.sliders,
-        [label]: {
-          ...prevSettings.sliders[label],
+        [ref]: {
+          ...prevSettings.sliders[ref],
           val: value,
         },
       },
+	  buttons: {...prevSettings.buttons},
+    }));
+  };
+  const handleButtonChange = (value, ref) => {
+    setSettings((prevSettings) => ({
+      sliders: {...prevSettings.sliders},
+	  buttons: {
+		...prevSettings.buttons,
+		[ref]: {
+			...prevSettings.buttons[ref],
+			val: value,
+		},
+	},
     }));
   };
 
@@ -28,6 +42,7 @@ export default function Settings({ settings, setSettings, isOpen, onClose }) {
 				<ModalHeader textAlign="center" color="white">Settings</ModalHeader>
 				<ModalBody>
 					<SlidersContainer sliders={settings.sliders} onSliderChange={handleSliderChange} />
+					<ButtonsContainer buttons={settings.buttons} onButtonChange={handleButtonChange}/>
 				</ModalBody>
 			</ModalContent>
 		</Modal>
