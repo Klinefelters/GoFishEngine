@@ -63,7 +63,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+screenshot will go here
 
 
 
@@ -74,7 +74,8 @@
 ### Built With
 
 * [![React][React.js]][React-url]
-* [![Python][Python.im]][Python-url]
+* ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/:Flask)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
