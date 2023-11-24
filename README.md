@@ -90,11 +90,8 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-* [python](https://www.python.org/downloads/)
+* [Node](https://nodejs.org/en/)
+* [Python](https://www.python.org/downloads/)
 
 ### Installation
 
@@ -181,9 +178,9 @@ Project Link: [https://github.com/klinefelters/GoFishEngine](https://github.com/
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/klinefelters
 [product-screenshot]: images/screenshot.png
-[React-badge]: [https://img.shields.io/badge/React-%5E16.0.0-blue](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+[React-badge]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[Flask-badge]: https://img.shields.io/badge/Flask-%5E1.0.0-green
+[Flask-badge]: https://img.shields.io/badge/Flask-%5E3.0.0-blue
 [Flask-url]: https://flask.palletsprojects.com/
-[attrs-badge]: https://img.shields.io/badge/attrs-%5E21.2.0-orange
+[attrs-badge]: https://img.shields.io/badge/attrs-%5E23.1.0-orange
 [attrs-url]: https://www.attrs.org/
