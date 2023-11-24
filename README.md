@@ -199,7 +199,7 @@ Project Link: [https://github.com/klinefelters/GoFishEngine](https://github.com/
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/klinefelters
 [product-screenshot]: images/screenshot.png
-[React-badge]: https://img.shields.io/badge/React-%5E16.0.0-blue
+[React-badge]: [https://img.shields.io/badge/React-%5E16.0.0-blue](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 [React-url]: https://reactjs.org/
 [Flask-badge]: https://img.shields.io/badge/Flask-%5E1.0.0-green
 [Flask-url]: https://flask.palletsprojects.com/
