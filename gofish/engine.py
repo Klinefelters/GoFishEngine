@@ -107,6 +107,7 @@ class Engine:
                     summary = self._playTurn(player, i)
                     if summary.busted:
                         break
+        self.evaluateGame()
 
     def _playTurn(self, player: Player, seat: int) -> TurnSummary:
         """
@@ -137,8 +138,13 @@ class Engine:
                 f"Player at seat {seat} asked for rank {rank} " +
                 "which they don't own. Please check that players code."
             )
-            raise ValueError(
-                "A player attempted to cheat, see logs for more details")
+            rank = ""
+        if target not in tmpState.validTargets:
+            logging.critical(
+                f"Player at seat {seat} asked to target {target} " +
+                "who doesn't exist. Please check that players code."
+            )
+            target = seat
 
         request = Request(player=seat, target=target, rank=rank)
         validate = perf_counter()
@@ -188,7 +194,8 @@ class Engine:
         books = self.gameState.hands[seat].pullBooks(seat)
         for book in books:
             for hand in self.gameState.publicHands:
-                hand.cards = [card for card in hand.cards if card.rank != book.rank]
+                hand.cards = [
+                    card for card in hand.cards if card.rank != book.rank]
 
         [self.gameState.books.append(book) for book in books]
         checking_books = perf_counter()
@@ -209,16 +216,16 @@ class Engine:
         logging.debug(f"Busted: {summary.busted}")
         logging.debug(f"Books: {summary.books}")
         returning = perf_counter()
-        logging.debug(f"Check Cards (ns)   : {check_cards-turn_start}")
-        logging.debug(f"Player Turn (ns)   : {player_turn-check_cards}")
-        logging.debug(f"Validate (ns)      : {validate-player_turn}")
-        logging.debug(f"Pull Ranks (ns)    : {pull_ranks-validate}")
-        logging.debug(f"Add Cards (ns)     : {add_cards-pull_ranks}")
-        logging.debug(f"Public Hands (ns)  : {public_hands-add_cards}")
-        logging.debug(f"Checking Bust (ns) : {checking_bust-public_hands}")
-        logging.debug(f"Checking Books (ns): {checking_books-checking_bust}")
-        logging.debug(f"Returning (ns)     : {returning-checking_books}")
-        logging.debug(f"Total (ns)         : {returning-turn_start}")
+        logging.debug(f"Check Cards    : {check_cards-turn_start}(s)")
+        logging.debug(f"Player Turn    : {player_turn-check_cards}(s)")
+        logging.debug(f"Validate       : {validate-player_turn}(s)")
+        logging.debug(f"Pull Ranks     : {pull_ranks-validate}(s)")
+        logging.debug(f"Add Cards      : {add_cards-pull_ranks}(s)")
+        logging.debug(f"Public Hands   : {public_hands-add_cards}(s)")
+        logging.debug(f"Checking Bust  : {checking_bust-public_hands}(s)")
+        logging.debug(f"Checking Books : {checking_books-checking_bust}(s)")
+        logging.debug(f"Returning      : {returning-checking_books}(s)")
+        logging.debug(f"Total          : {returning-turn_start}(s)")
         return summary
 
     def evaluateGame(self) -> list[float]:

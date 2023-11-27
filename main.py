@@ -1,5 +1,6 @@
 from gofish import Engine
 from examplePlayers.randPlayer import RandPlayer
+from examplePlayers.userPlayer import UserPlayer
 from logging import DEBUG, INFO
 
 
@@ -8,20 +9,23 @@ def main() -> None:
         players=[
             RandPlayer("Random 0"),
             RandPlayer("Random 1"),
-            RandPlayer("Player2"),
-            RandPlayer("Player3"),
-            RandPlayer("Player4"),
-            RandPlayer("Player5"),
-            RandPlayer("Player6"),
+            RandPlayer("Random 2"),
+            RandPlayer("Random 3"),
+            RandPlayer("Random 4"),
+            RandPlayer("Random 5"),
+            RandPlayer("Random 6"),
         ],
-        logLevel=DEBUG)
+        logLevel=INFO)
 
-    # engine.playGame()
-    # engine.evaluatePlayers(runs=100)
-    while True:
-        summary = next(engine.yieldGame())
-        print(summary.getDict())
-        input()
+    engine.playGame()
+    # print(engine.evaluatePlayers(runs=1000))
+    # while True:
+    #     try:
+    #         summary = next(engine.yieldGame())
+    #         print(summary.getDict())
+    #         input()
+    #     except StopIteration:
+    #         break
 
 
 if __name__ == "__main__":
