@@ -1,5 +1,5 @@
 from gofish.resources.card import Card
-from attr import define, Factory
+from attr import define, Factory, asdict
 from typing import List
 
 
@@ -12,5 +12,23 @@ class Response:
     - player (int): The index of the player responding.
     - cards (List[Card]): The list of cards provided in response.
     """
-    player: int
+    player: int = 0
     cards: List[Card] = Factory(list)
+
+    def getDict(self) -> dict:
+        """
+        Retrieve a dictionary representation of the Response.
+
+        Returns:
+        - dict: the result object as a dictionary
+        """
+        return asdict(self)
+
+    def checkBust(self) -> bool:
+        """
+        Checks if all lists of cards from players are empty.
+
+        Returns:
+        bool: True if all lists are empty, False otherwise.
+        """
+        return not self.cards

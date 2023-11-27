@@ -1,7 +1,6 @@
 from gofish.resources.hand import Hand
 from gofish.resources.pool import Pool
 from gofish.resources.book import Book
-from gofish.resources.history import History
 from gofish.resources.playerState import PlayerState
 from attr import define, Factory, asdict
 from typing import List
@@ -17,7 +16,6 @@ class GameState:
     - publicHands (List[Hand]): The list of public hands in the game.
     - pool (Pool): The pool of cards in the game.
     - books (List[Book]): The list of books formed in the game.
-    - history (History): The history of requests and results for the entire game.
     - currentSeat (int): The index of the current player.
 
     Methods:
@@ -28,7 +26,6 @@ class GameState:
     publicHands: List[Hand] = Factory(list)
     pool: Pool = Factory(Pool)
     books: List[Book] = Factory(list)
-    history: History = Factory(History)
     currentSeat: int = 0
 
     def getPlayerState(self, player_index: int) -> PlayerState:
@@ -42,14 +39,11 @@ class GameState:
         hidden_state = PlayerState(
             hand=Hand(self.hands[player_index].cards.copy()),  # Copy the Hand
             validRanks=list(set(allRanks)),
+            validTargets=[i for i in range(
+                len(self.hands)) if i != player_index],
             publicHands=self.publicHands.copy(),  # Copy the public information
             pool=len(self.pool.cards),  # Send Empty Pool
             books=self.books.copy(),  # Copy the books
-            history=History(
-                self.history.requests.copy(),
-                self.history.results.copy(),
-                self.history.draws.copy()
-            ),
             currentSeat=player_index
         )
 

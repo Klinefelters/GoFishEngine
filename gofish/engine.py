@@ -1,6 +1,7 @@
 from gofish.player import Player
 from gofish.resources import *
 from typing import Iterator
+from time import perf_counter
 import logging
 
 
@@ -57,7 +58,6 @@ class Engine:
             publicHands=[Hand() for _ in self.players],
             pool=pool,
             books=[],
-            history=History(),
             currentSeat=0
         )
         self.deal()
@@ -119,6 +119,7 @@ class Engine:
         Returns:
             TurnSummary: A summary object of the turn. Check resources.
         """
+        turn_start = perf_counter()
         tmpState = self.gameState.getPlayerState(seat)
         if len(tmpState.validRanks) < 1:
             try:
@@ -126,11 +127,11 @@ class Engine:
                 self.gameState.hands[seat].cards.append(drawn)
                 tmpState = self.gameState.getPlayerState(seat)
             except IndexError:
-                summary = TurnSummary(seat, Request(seat))
+                summary = TurnSummary(seat, Request(seat, seat))
                 return summary
-
-        rank = player.takeTurn(state=tmpState)
-
+        check_cards = perf_counter()
+        rank, target = player.takeTurn(state=tmpState)
+        player_turn = perf_counter()
         if rank not in tmpState.validRanks:
             logging.critical(
                 f"Player at seat {seat} asked for rank {rank} " +
@@ -139,28 +140,40 @@ class Engine:
             raise ValueError(
                 "A player attempted to cheat, see logs for more details")
 
-        request = Request(player=seat, rank=rank)
+        request = Request(player=seat, target=target, rank=rank)
+        validate = perf_counter()
 
-        result = Result()
+        found = self.gameState.hands[target].pullRanks(rank)
+        pull_ranks = perf_counter()
 
-        for j, hand in enumerate(self.gameState.hands):
-            if seat != j:
-                found = hand.pullRanks(rank)
-                response = Response(player=j, cards=found)
-                for card in found:
-                    self.gameState.hands[seat].cards.append(card)
-                    for hand in self.gameState.publicHands:
-                        for card in hand.cards:
-                            if card.rank == rank:
-                                hand.cards.remove(card)
-                    self.gameState.publicHands[seat].cards.append(card)
-                self.gameState.publicHands[seat].cards.append(Card(rank, "?"))
-                result.responses.append(response)
+        response = Response(player=target, cards=found)
+        for card in found:
+            self.gameState.hands[seat].cards.append(card)
+
+        add_cards = perf_counter()
+        target_hand = self.gameState.publicHands[target]
+        seat_hand = self.gameState.publicHands[seat]
+
+        # Use a list comprehension to filter out cards with the specified rank from the target hand
+        cards_to_move = [
+            card for card in target_hand.cards if card.rank == rank]
+
+        # Remove the filtered cards from the target hand
+        target_hand.cards = [
+            card for card in target_hand.cards if card.rank != rank]
+
+        # Append the filtered cards to the seat hand
+        seat_hand.cards.extend(cards_to_move)
+
+        # Append a new card to the seat hand
+        seat_hand.cards.append(Card(rank, "?"))
+
+        public_hands = perf_counter()
 
         drawn = False
         busted = False
 
-        if result.checkBust():
+        if response.checkBust():
             try:
                 drawn = self.gameState.pool.cards.pop(0)
                 self.gameState.hands[seat].cards.append(drawn)
@@ -171,29 +184,41 @@ class Engine:
                     self.gameState.publicHands[seat].cards.append(drawn)
             except IndexError:
                 busted = True
-
+        checking_bust = perf_counter()
         books = self.gameState.hands[seat].pullBooks(seat)
         for book in books:
             for hand in self.gameState.publicHands:
-                for card in hand.cards:
-                    if book.rank == card.rank:
-                        hand.cards.remove(card)
+                hand.cards = [card for card in hand.cards if card.rank != book.rank]
 
         [self.gameState.books.append(book) for book in books]
+        checking_books = perf_counter()
         [logging.info(f"Player {book.player} layed down {book.rank}")
          for book in books]
-
-        self.gameState.history.requests.insert(0, request)
-        self.gameState.history.results.insert(0, result)
-        self.gameState.history.draws.insert(0, drawn)
-        summary = TurnSummary(seat, request, result, drawn, books, busted)
+        summary = TurnSummary(
+            seat=seat,
+            request=request,
+            response=response,
+            drawn=drawn,
+            books=books,
+            busted=busted
+        )
 
         logging.debug(f"Request: {summary.request.getDict()}")
-        logging.debug(f"Result: {summary.result.getDict()}")
+        logging.debug(f"Result: {summary.response.getDict()}")
         logging.debug(f"Draw: {summary.drawn}")
         logging.debug(f"Busted: {summary.busted}")
         logging.debug(f"Books: {summary.books}")
-
+        returning = perf_counter()
+        logging.debug(f"Check Cards (ns)   : {check_cards-turn_start}")
+        logging.debug(f"Player Turn (ns)   : {player_turn-check_cards}")
+        logging.debug(f"Validate (ns)      : {validate-player_turn}")
+        logging.debug(f"Pull Ranks (ns)    : {pull_ranks-validate}")
+        logging.debug(f"Add Cards (ns)     : {add_cards-pull_ranks}")
+        logging.debug(f"Public Hands (ns)  : {public_hands-add_cards}")
+        logging.debug(f"Checking Bust (ns) : {checking_bust-public_hands}")
+        logging.debug(f"Checking Books (ns): {checking_books-checking_bust}")
+        logging.debug(f"Returning (ns)     : {returning-checking_books}")
+        logging.debug(f"Total (ns)         : {returning-turn_start}")
         return summary
 
     def evaluateGame(self) -> list[float]:
@@ -242,7 +267,6 @@ class Engine:
             publicHands=[Hand() for _ in self.players],
             pool=pool,
             books=[],
-            history=History(),
             currentSeat=0
         )
         self.deal()

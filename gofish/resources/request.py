@@ -14,6 +14,7 @@ class Request:
     - getDict() -> dict: Returns a dictionary representation of the Request.
     """
     player: int
+    target: int
     rank: str = None
 
     def getDict(self) -> dict:

@@ -14,7 +14,7 @@ def main() -> None:
             RandPlayer("Player5"),
             RandPlayer("Player6"),
         ],
-        logLevel=INFO)
+        logLevel=DEBUG)
 
     # engine.playGame()
     # engine.evaluatePlayers(runs=100)

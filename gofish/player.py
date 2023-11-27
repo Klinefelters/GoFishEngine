@@ -1,4 +1,5 @@
 from gofish.resources import PlayerState
+from typing import Union
 
 
 class Player:
@@ -30,7 +31,7 @@ class Player:
         """
         pass
 
-    def takeTurn(self, state: PlayerState) -> str:
+    def takeTurn(self, state: PlayerState) -> Union[str, int]:
         """
         Perform the player's turn.
 
@@ -42,8 +43,9 @@ class Player:
         - state (PlayerState): The current state of the game for the player.
 
         Returns:
-        str: The rank of the card the player requests. This can be "A", "K", "Q",
-        "J", or a string representation of the numbers 2-10.
+        str: The rank of the card the player requests.
+        int: The target of the seat the player requests.
+
 
         Raises:
         NotImplementedError: This function must be implemented by subclasses.
