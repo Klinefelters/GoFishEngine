@@ -139,6 +139,10 @@ class Engine:
                 "which they don't own. Please check that players code."
             )
             rank = ""
+            suit = ""
+        else:
+            suit = next(
+                (card.suit for card in tmpState.hand.cards if card.rank == rank), None)
         if target not in tmpState.validTargets:
             logging.critical(
                 f"Player at seat {seat} asked to target {target} " +
@@ -146,19 +150,21 @@ class Engine:
             )
             target = seat
 
-        request = Request(player=seat, target=target, rank=rank)
+        request = Request(player=seat, target=target, rank=rank, suit=suit)
         validate = perf_counter()
 
         found = self.gameState.hands[target].pullRanks(rank)
         pull_ranks = perf_counter()
+        seat_hand = self.gameState.publicHands[seat]
 
         response = Response(player=target, cards=found)
         for card in found:
             self.gameState.hands[seat].cards.append(card)
+            if card not in seat_hand.cards:
+                seat_hand.cards.append(card)
 
         add_cards = perf_counter()
         target_hand = self.gameState.publicHands[target]
-        seat_hand = self.gameState.publicHands[seat]
 
         # Use a list comprehension to filter out cards with the specified rank from the target hand
         cards_to_move = [
@@ -171,8 +177,10 @@ class Engine:
         # Append the filtered cards to the seat hand
         seat_hand.cards.extend(cards_to_move)
 
-        # Append a new card to the seat hand
-        seat_hand.cards.append(Card(rank, "?"))
+        # Append a new card to the seat hand only if it doesn't already exist
+        new_card = Card(rank, suit)
+        if new_card not in seat_hand.cards:
+            seat_hand.cards.append(new_card)
 
         public_hands = perf_counter()
 

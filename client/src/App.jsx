@@ -10,10 +10,14 @@ export default function App() {
 	const [loading, setLoading] = useState(true);
 	const { isOpen: welcomeIsOpen, onClose: welcomeClose, onOpen: welcomeOpen } = useDisclosure();
 	const { isOpen: settingsIsOpen, onClose: settingsClose, onOpen: settingsOpen } = useDisclosure();
-	const [summary, setSummary] = useState({});
+	const [summary, setSummary] = useState({
+		request: {player: 0, target: 0, rank: "A", suit:"Spades"},
+		response: {cards: []},
+		seat: 0,
+	});
 	const [settings, setSettings] = useState({
 		sliders:{
-			tickInterval: {val:2000, min:500, max:2000, step:10, label:'Tick Interval (ms)', ref:"tickInterval"},
+			tickInterval: {val:2000, min:1000, max:5000, step:10, label:'Tick Interval (ms)', ref:"tickInterval"},
 			cardSize: {val:100, min:10, max:200, step:1, label:'Card Size (px)', ref:"cardSize"},
 		},
 		buttons:{
@@ -23,7 +27,8 @@ export default function App() {
 	const [gameState, setGameState] = useState({
 		pool: {cards: Array.from({ length: 38 })},
 		books: [],
-		hands: [{cards: Array.from({ length: 7 })}, {cards: Array.from({ length: 7 })},]
+		hands: [{cards: Array.from({ length: 7 })}, {cards: Array.from({ length: 7 })},],
+		publicHands:[{cards: Array.from({ length: 7 })}, {cards: Array.from({ length: 7 })},]
 	});
 
 	useEffect(() => {welcomeOpen();}, []);
@@ -74,7 +79,7 @@ export default function App() {
 		) : (
 			<>
 			<Flex bg="brand.300" style = {{flex: 1}} h="100vh" >
-					<Table gameState={gameState} settings={settings}/>
+					<Table gameState={gameState} settings={settings} summary={summary}/>
 					<Sidebar gameState={gameState} settings={settings}/>
 			</Flex>
 			<Welcome onClose={welcomeClose} isOpen={welcomeIsOpen} />

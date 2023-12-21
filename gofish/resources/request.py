@@ -1,4 +1,5 @@
 from attr import define, asdict
+from .card import Card
 
 
 @define
@@ -16,6 +17,7 @@ class Request:
     player: int
     target: int
     rank: str = None
+    suit: str = None
 
     def getDict(self) -> dict:
         """
