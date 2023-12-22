@@ -4,6 +4,7 @@ import {
 	ModalContent,
 	ModalBody,
 	ModalHeader,
+	Select,
 } from '@chakra-ui/react'
 import SlidersContainer from './settings-elements/SlidersContainer';
 import ButtonsContainer from './settings-elements/ButtonsContainer';
@@ -34,6 +35,12 @@ export default function Settings({ settings, setSettings, isOpen, onClose }) {
 	},
     }));
   };
+  const handleCardVisionChange = (event) => {
+	setSettings((prevSettings) => ({
+		...prevSettings,
+		cardVision: event.target.value,
+	}));
+};
 
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} >
@@ -42,6 +49,11 @@ export default function Settings({ settings, setSettings, isOpen, onClose }) {
 				<ModalHeader textAlign="center" color="white">Settings</ModalHeader>
 				<ModalBody>
 					<SlidersContainer sliders={settings.sliders} onSliderChange={handleSliderChange} />
+					<Select value={settings.cardVision} onChange={handleCardVisionChange}>
+                        <option value="Normal">Normal</option>
+                        <option value="GodMode">GodMode</option>
+                        <option value="Hidden">Hidden</option>
+                    </Select>
 					<ButtonsContainer buttons={settings.buttons} onButtonChange={handleButtonChange}/>
 				</ModalBody>
 			</ModalContent>

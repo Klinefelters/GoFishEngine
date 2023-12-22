@@ -1,6 +1,6 @@
 import { Box, Image } from "@chakra-ui/react";
 
-export default function Hand  ({cards, index, size, publicCards}) {
+export default function Hand  ({cards, index, size, publicCards, godMode=false, hidden=false}) {
 		const spacing=20;
 		const handWidth = size*2/3 + spacing * cards.length;
 		const renderCards = () => {
@@ -21,7 +21,7 @@ export default function Hand  ({cards, index, size, publicCards}) {
                 	transformStyle: 'preserve-3d'
 				};
 
-				const isCardPublic = publicCards && publicCards.some(publicCard => publicCard && publicCard.rank === card.rank && publicCard.suit === card.suit);
+				const isCardPublic = ((publicCards && publicCards.some(publicCard => publicCard && publicCard.rank === card.rank && publicCard.suit === card.suit) && !hidden) || godMode);
             	const cardImage = isCardPublic ? `playing-cards/${card.rank}_of_${card.suit.toLowerCase()}.png` : "card-backs/default.png";
 	
 				return (

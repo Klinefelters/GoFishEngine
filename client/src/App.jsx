@@ -1,4 +1,4 @@
-import {Flex, Spinner, useDisclosure} from '@chakra-ui/react';
+import {Divider, Flex, Spinner, useDisclosure} from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import ApiService from './services/apiService';
 import Table from './components/game-elements/Table';
@@ -7,7 +7,6 @@ import Welcome from './components/Welcome';
 import Settings from './components/Settings';
 
 export default function App() {
-	const [loading, setLoading] = useState(true);
 	const { isOpen: welcomeIsOpen, onClose: welcomeClose, onOpen: welcomeOpen } = useDisclosure();
 	const { isOpen: settingsIsOpen, onClose: settingsClose, onOpen: settingsOpen } = useDisclosure();
 	const [summary, setSummary] = useState({
@@ -22,7 +21,8 @@ export default function App() {
 		},
 		buttons:{
 			paused: {val: false, trueLabel:'Start', falseLabel:'Pause', ref:'paused', trueColor:'green', falseColor:'red'},
-		}
+		},
+		cardVision: "normal"
 	});
 	const [gameState, setGameState] = useState({
 		pool: {cards: Array.from({ length: 38 })},
@@ -48,7 +48,6 @@ export default function App() {
 	useEffect(() => {
 		const getGameState = async () => {setGameState( await ApiService.getGameState({}))};
 		getGameState()
-		setLoading(false);
 
 		const intervalId = setInterval(() => {
 				const playRound = async () => {
@@ -71,21 +70,13 @@ export default function App() {
 
 	return(
 		<>
-		{loading ? (
-			// Display the loading module while the page is still loading
-			<Flex align="center" justify="center" height="100vh" backgroundColor="gray.100">
-				<Spinner size="xl" />
-			</Flex>
-		) : (
-			<>
-			<Flex bg="brand.300" style = {{flex: 1}} h="100vh" >
-					<Table gameState={gameState} settings={settings} summary={summary}/>
-					<Sidebar gameState={gameState} settings={settings}/>
+			<Flex bg="brand.green" style = {{flex: 1}} h="100vh" overflow="hidden">
+				<Table gameState={gameState} settings={settings} summary={summary}/>
+				<Divider orientation="vertical" mr="10px" />
+				<Sidebar gameState={gameState} settings={settings}/>
 			</Flex>
 			<Welcome onClose={welcomeClose} isOpen={welcomeIsOpen} />
 			<Settings settings={settings} setSettings={setSettings} onClose={settingsClose} isOpen={settingsIsOpen} />
-			</>
-			)}
-			</>
+		</>
 	);
 }

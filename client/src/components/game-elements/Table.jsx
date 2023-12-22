@@ -26,13 +26,13 @@ export default function Table({ gameState, settings, summary }) {
 		};
 		
 		return (
-			<Box bg="brand.green">
+			<Box h="100vh">
 				<SimpleGrid my="2.5vh" mx="2.5vw" w="75vw" minChildWidth={`${settings.sliders.cardSize.val}px`} spacing="40px">
 					{renderFirstPlayers()}
 				</SimpleGrid>
 				<Flex>
 					<Spacer />
-					<Pool numberOfCards={gameState.pool.cards.length} size={settings.sliders.cardSize.val} />
+					<Pool cards={gameState.pool.cards} size={settings.sliders.cardSize.val} settings={settings} />
 					<Spacer />
 				</Flex>
 				<SimpleGrid my="2.5vh" mx="2.5vw" w="75vw" minChildWidth="120px" spacing="40px">
