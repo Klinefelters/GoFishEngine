@@ -1,7 +1,7 @@
 from gofish.api import genApp
 from gofish import Engine
 from examplePlayers.randPlayer import RandPlayer
-from logging import DEBUG
+# from logging import DEBUG
 
 engine = Engine(
     players=[
