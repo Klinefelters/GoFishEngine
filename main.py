@@ -17,7 +17,8 @@ def main() -> None:
         ],
         logLevel=INFO)
 
-    engine.playGame()
+    # engine.playGame()
+    engine.serveGame()
     # print(engine.evaluatePlayers(runs=1000))
     # while True:
     #     try:

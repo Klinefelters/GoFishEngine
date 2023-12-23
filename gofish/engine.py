@@ -1,5 +1,6 @@
 from gofish.player import Player
 from gofish.resources import RANKS, Card, Hand, Pool, Request, Response, TurnSummary, GameState # noqa
+from gofish.api import genApp
 from typing import Iterator
 from time import perf_counter
 import logging
@@ -91,6 +92,16 @@ class Engine:
                 if self.gameState.currentSeat > self.numPlayers - 1:
                     self.gameState.currentSeat = 0
             yield summary
+
+    def serveGame(self) -> None:
+        """
+        Starts the game engine.
+
+        During a round, each player takes their turn, requests a card from other players,
+        and collects any cards they receive. The results of each turn are printed.
+        """ # noqa
+        app = genApp(self)
+        app.run(host="0.0.0.0", port=8000, )
 
     def playGame(self) -> None:
         """
