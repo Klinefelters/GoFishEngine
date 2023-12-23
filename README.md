@@ -60,7 +60,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-<img src="images/screenshot.png" alt="screenshot" width="960" height="540">
+<img src="images/Screenshot.png" alt="screenshot" width="960" height="540">
 
 
 
