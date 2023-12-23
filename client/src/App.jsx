@@ -5,6 +5,8 @@ import Table from './components/game-elements/Table';
 import Sidebar from './components/Sidebar';
 import Welcome from './components/Welcome';
 import Settings from './components/Settings';
+import Card from './components/game-elements/card';
+import Cards from './components/game-elements/Cards';
 
 export default function App() {
 	const { isOpen: welcomeIsOpen, onClose: welcomeClose, onOpen: welcomeOpen } = useDisclosure();
@@ -16,7 +18,7 @@ export default function App() {
 	});
 	const [settings, setSettings] = useState({
 		sliders:{
-			tickInterval: {val:2000, min:1000, max:5000, step:10, label:'Tick Interval (ms)', ref:"tickInterval"},
+			tickInterval: {val:2000, min:250, max:5000, step:10, label:'Tick Interval (ms)', ref:"tickInterval"},
 			cardSize: {val:100, min:10, max:200, step:1, label:'Card Size (px)', ref:"cardSize"},
 		},
 		buttons:{
@@ -25,13 +27,17 @@ export default function App() {
 		cardVision: "normal"
 	});
 	const [gameState, setGameState] = useState({
-		pool: {cards: Array.from({ length: 38 })},
+		pool: {cards: []},
 		books: [],
-		hands: [{cards: Array.from({ length: 7 })}, {cards: Array.from({ length: 7 })},],
+		hands: [{cards: []}, {cards: []},],
 		publicHands:[{cards: Array.from({ length: 7 })}, {cards: Array.from({ length: 7 })},]
 	});
+	const getGameState = async () => {setGameState( await ApiService.getGameState({}))};
 
-	useEffect(() => {welcomeOpen();}, []);
+	useEffect(() => {
+		// welcomeOpen();
+		getGameState();
+	}, []);
 
 	const handleKeyPress = (event) => {
 		if (event.key === 'Escape') {settingsOpen();}
@@ -44,11 +50,7 @@ export default function App() {
 		};
 	}, [settingsOpen]);
 		
-
 	useEffect(() => {
-		const getGameState = async () => {setGameState( await ApiService.getGameState({}))};
-		getGameState()
-
 		const intervalId = setInterval(() => {
 				const playRound = async () => {
 					
@@ -72,8 +74,6 @@ export default function App() {
 		<>
 			<Flex bg="brand.green" style = {{flex: 1}} h="100vh" overflow="hidden">
 				<Table gameState={gameState} settings={settings} summary={summary}/>
-				<Divider orientation="vertical" mr="10px" />
-				<Sidebar gameState={gameState} settings={settings}/>
 			</Flex>
 			<Welcome onClose={welcomeClose} isOpen={welcomeIsOpen} />
 			<Settings settings={settings} setSettings={setSettings} onClose={settingsClose} isOpen={settingsIsOpen} />
