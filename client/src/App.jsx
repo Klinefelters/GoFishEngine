@@ -71,7 +71,7 @@ export default function App() {
 	return(
 		<>
 			<Flex bg="brand.green" style = {{flex: 1}} h="100vh" overflow="hidden">
-				<Table gameState={gameState} settings={settings} summary={summary}/>
+				<Table gameState={gameState} settings={settings} summary={summary} welcomeIsOpen={welcomeIsOpen}/>
 			</Flex>
 			<Welcome onClose={welcomeClose} isOpen={welcomeIsOpen} />
 			<GameOver onClose={gameOverClose} isOpen={gameOverIsOpen} open={gameOverOpen} summary={summary} welcomeOpen={welcomeOpen} />

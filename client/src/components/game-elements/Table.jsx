@@ -7,7 +7,7 @@ import Books from "./Books";
 const suits = ["hearts", "diamonds", "clubs", "spades"];
 const ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 
-export default function Table({ gameState, settings, summary }) {
+export default function Table({ gameState, settings, summary, welcomeIsOpen }) {
 	const booksPos = {x:window.innerWidth-(settings.sliders.cardSize.val * (1 + 1/6) + 10), y:10};
 	const [cards, setCards] = useState(() => {
 		const initialCards = [];
@@ -101,7 +101,7 @@ export default function Table({ gameState, settings, summary }) {
 			}
 		}
 		// updateCard("A", "hearts", true, { x: 500, y: 200 });
-	}, [gameState, settings]);
+	}, [gameState, settings, welcomeIsOpen]);
 
 	return (
 		<Flex h="100vh" w="100vw">
