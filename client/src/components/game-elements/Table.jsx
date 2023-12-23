@@ -8,7 +8,7 @@ const suits = ["hearts", "diamonds", "clubs", "spades"];
 const ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 
 export default function Table({ gameState, settings, summary }) {
-	const booksPos = {x:window.innerWidth-(settings.sliders.cardSize.val*5/3 + 10), y:10};
+	const booksPos = {x:window.innerWidth-(settings.sliders.cardSize.val * (1 + 1/6) + 10), y:10};
 	const [cards, setCards] = useState(() => {
 		const initialCards = [];
 
@@ -33,15 +33,28 @@ export default function Table({ gameState, settings, summary }) {
 				: card
 		));
 	};
-	const playerPositions = [
-		{ x: window.innerWidth/2, y: 200 },
-		{ x: window.innerWidth/2, y: 600 },
-		{ x: 500, y: 400 },
-		{ x: 900, y: 300 },
-		{ x: 500, y: 500 },
-		{ x: 100, y: 600 },
-	];
+	function generatePlayerPositions(numPlayers, settings) {
+		const positions = [];
+		const topY = window.innerHeight / 4 + settings.sliders.cardSize.val / 4;
+		const bottomY = window.innerHeight * 3 / 4 + settings.sliders.cardSize.val / 4;
+		const width = window.innerWidth;
 
+		const playersPerRow = Math.ceil(numPlayers / 2);
+		const isOdd = numPlayers % 2 !== 0;
+
+		for (let i = 0; i < numPlayers; i++) {
+			const isBottomRow = i >= playersPerRow;
+			const y = isBottomRow ? bottomY : topY;
+			const x = isBottomRow && isOdd
+				? (width / (playersPerRow )) * ((i % playersPerRow) + 1)
+				: (width / (playersPerRow + 1)) * ((i % playersPerRow) + 1);
+			positions.push({ x, y });
+		}
+
+		return positions;
+	}
+	const playerPositions = generatePlayerPositions(gameState.hands.length, settings);
+	
 	useEffect(() => {
 		
 		if (gameState) {
@@ -52,7 +65,7 @@ export default function Table({ gameState, settings, summary }) {
 					for (let j = 0; j < hand.cards.length; j++) {
 						const card = hand.cards[j];
 						const cardPosition = { 
-							x: playerPosition.x + j * settings.sliders.cardSize.val / 3 - hand.cards.length * settings.sliders.cardSize.val / 6, 
+							x: playerPosition.x + j * settings.sliders.cardSize.val / 6 - hand.cards.length * settings.sliders.cardSize.val / 12, 
 							y: playerPosition.y - settings.sliders.cardSize.val/2
 						};
 						const publicCards = gameState.publicHands[i].cards;
@@ -67,7 +80,7 @@ export default function Table({ gameState, settings, summary }) {
 					for (let j = 0; j < hand.cards.length; j++) {
 						const card = hand.cards[j];
 						const cardPosition = { 
-							x: booksPos.x + j * settings.sliders.cardSize.val / 3, 
+							x: booksPos.x + j * settings.sliders.cardSize.val / 6, 
 							y: booksPos.y + i * settings.sliders.cardSize.val / 2
 						};
 						updateCard(card.rank, card.suit.toLowerCase(), true, cardPosition, j+i*4);
@@ -82,7 +95,7 @@ export default function Table({ gameState, settings, summary }) {
 				const card = gameState.pool.cards[i];
 				const cardPosition = { 
 					x: pos.x + i * settings.sliders.cardSize.val / 50, 
-					y: pos.y 
+					y: pos.y  
 				};
 				updateCard(card.rank, card.suit.toLowerCase(), (settings.cardVision==="GodMode"), cardPosition, gameState.pool.cards.length-i);
 			}

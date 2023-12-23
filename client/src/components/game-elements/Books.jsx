@@ -11,7 +11,7 @@ export default function Books ({books, size, animationTime}){
 						<Avatar
 							position="fixed"
 							top={`${10  + index * (size / 2 )}px`}
-							right={`${10 + size * 4/6}px`}
+							right={`${10+ size/100}px`}
 							w={`${size/2}px`}
 							h={`${size/2}px`}
 							name={`Player ${book.player + 1}`}
