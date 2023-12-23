@@ -49,7 +49,7 @@ export default function Settings({ settings, setSettings, isOpen, onClose }) {
 				<ModalHeader textAlign="center" color="white">Settings</ModalHeader>
 				<ModalBody>
 					<SlidersContainer sliders={settings.sliders} onSliderChange={handleSliderChange} />
-					<Select value={settings.cardVision} onChange={handleCardVisionChange}>
+					<Select textColor={"white"} value={settings.cardVision} onChange={handleCardVisionChange}>
                         <option value="Normal">Normal</option>
                         <option value="GodMode">GodMode</option>
                         <option value="Hidden">Hidden</option>

@@ -1,7 +1,6 @@
 from gofish import Engine
-from gofish.examplePlayers import RandPlayer
-# from examplePlayers.userPlayer import UserPlayer
 from logging import INFO    # DEBUG
+from gofish.examplePlayers import RandPlayer
 
 
 def main() -> None:

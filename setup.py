@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='gofish',
@@ -8,7 +8,10 @@ setup(
     author='Steven Klinefelter',
     author_email='klinefelters@etown.edu',
     license='MIT',
-    packages=['gofish'],
+    packages=find_packages(),
+    package_data={
+        'gofish': ['api/static/*', 'api/static/*/*'],
+    },
     install_requires=[
         'mpi4py',
         'attrs',

@@ -62,6 +62,7 @@ export default function Player ({ seat, summary, settings, position}) {
 				fontSize="md"
 				justifyContent={"center"}
 				textAlign="center"
+				textColor={"white"}
 				borderRadius="xl"
 				opacity={shown ? 1 : 0}
 				bg={color}
