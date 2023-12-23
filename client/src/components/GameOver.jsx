@@ -33,9 +33,9 @@ export default function GameOver({ isOpen, onClose, open, summary, welcomeOpen }
                 top={`${window.innerHeight/2-300}px`}
                 borderRadius={"2xl"}
             >
-                <Flex direction="column" justifyContent="center" alignItems="center" h="300px">
+                <Flex direction="column" justifyContent="center" alignItems="center" h="300px" textColor={"white"}>
                     {lines.map((line, index) => <p key={index}>{line}</p>)}
-                    <Flex h="10px" m="10px" textColor={"white"}>
+                    <Flex h="10px" m="10px" >
                         <ResetButton />
                         <Button ml="10px"onClick={handleClose}>Close</Button>
                     </Flex>
