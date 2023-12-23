@@ -2,8 +2,8 @@ from setuptools import setup, find_packages
 
 setup(
     name='gofish',
-    version='0.1.0',
-    description='Still deciding',
+    version='1.0.0',
+    description='A python go fish engine for testing AI players.',
     url='https://github.com/klinefelter/GoFish',
     author='Steven Klinefelter',
     author_email='klinefelters@etown.edu',
@@ -20,7 +20,12 @@ setup(
     ],
 
     classifiers=[
-        'Development Status :: 1 - Planning',
-        'Programming Language :: Python :: 3.11.6',
+        'Development Status :: 2 - Pre-Aplha',
+        'Framework :: Flask',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.8',
     ],
 )

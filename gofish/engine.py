@@ -1,7 +1,7 @@
 from gofish.player import Player
 from gofish.resources import RANKS, Card, Hand, Pool, Request, Response, TurnSummary, GameState # noqa
 from gofish.api import genApp
-from typing import Iterator
+from typing import Iterator, List
 from time import perf_counter
 import logging
 
@@ -25,7 +25,7 @@ class Engine:
     - broadcast(self, results: Result) -> None: Prints the results of the current round.
     """ # noqa
 
-    def __init__(self, players: list[Player], **kwargs) -> None:
+    def __init__(self, players: List[Player], **kwargs) -> None:
         """
         Initializes the game engine with the given players.
 
@@ -244,7 +244,7 @@ class Engine:
         logging.debug(f"Total          : {returning-turn_start}(s)")
         return summary
 
-    def evaluateGame(self) -> list[float]:
+    def evaluateGame(self) -> List[float]:
         """
         Evaluates the final game state to find the winner(s)
 
@@ -259,7 +259,7 @@ class Engine:
         logging.info(f"Player(s) {winners} won with {maxVal} books")
         return count
 
-    def evaluatePlayers(self, runs: int = 10) -> list[float]:
+    def evaluatePlayers(self, runs: int = 10) -> List[float]:
         """
         Evaluates the final game state to find the winner(s)
 
