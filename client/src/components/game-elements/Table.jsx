@@ -37,7 +37,7 @@ export default function Table({ gameState, settings, summary }) {
 		const positions = [];
 		const topY = window.innerHeight / 4 + settings.sliders.cardSize.val / 4;
 		const bottomY = window.innerHeight * 3 / 4 + settings.sliders.cardSize.val / 4;
-		const width = window.innerWidth;
+		const width = window.innerWidth-(settings.sliders.cardSize.val * (1 + 1/6) + 20);
 
 		const playersPerRow = Math.ceil(numPlayers / 2);
 		const isOdd = numPlayers % 2 !== 0;
