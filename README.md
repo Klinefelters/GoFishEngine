@@ -49,12 +49,10 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#development-setup">Development Setup</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -95,26 +93,84 @@ To get a local copy up and running follow these simple example steps.
 
 ### Installation
 
-1. Clone the repo
+1. Install the package
    ```sh
-   git clone https://github.com/klinefelters/GoFishEngine.git
+   pip install git+https://github.com/Klinefelters/GoFishEngine
    ```
-2. Install the package
-   ```sh
-   cd GoFishEngine
-   pip install .
+2. Set up the engine:
+  ```python
+  from gofish import Engine
+  from gofish.examplePlayers import RandPlayer
+  from logging import INFO // Echange this with debug to get more info
+
+  engine = Engine(
+      players=[
+          RandPlayer("Random 0"),
+          RandPlayer("Random 1"),
+          # Add up to 7 players
+      ],
+      logLevel=INFO)
+  ```
+3. Render the results:
+   - Print the game out to the terminal
+   ```python
+    engine.playGame()
    ```
+   - Serve the game as a webgui at localhost:8000
+   ```python
+    engine.serveGame()
+   ```
+   - Evaulate players over any number of runs
+   ```python
+    print(engine.evaluatePlayers(runs=1000))
+   ```
+   - Yeild the game as a generator of summaries
+   ```python
+    while True:
+        try:
+            summary = next(engine.yieldGame())
+            print(summary.getDict())
+            input()
+        except StopIteration:
+            break
+   ```
+  example:
+  ```python
+  from gofish import Engine
+  from gofish.examplePlayers import RandPlayer
+  from logging import INFO // Echange this with debug to get more info
+  
+  engine = Engine(
+      players=[
+          RandPlayer("Random 0"),
+          RandPlayer("Random 1"),
+          # Add up to 7 players
+      ],
+      logLevel=INFO)
+  engine.serveGame()
+  ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
-<!-- USAGE EXAMPLES -->
-<!-- ## Usage -->
+<!-- Development Setup -->
+ ## Development Setup
+1. Clone the repo:
+    ```bash
+    git clone https://github.com/klinefelters/GoFishEngine
+    ```
+2. Install the client:
+   ```bash
+   cd client
+   npm i
+   ```
+3. Now when testing run the following for hotreloads:
+   ```bash
+   npm run dev
+   ```
 
-<!-- usage goes here -->
-
-<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
+ <p align="right">(<a href="#readme-top">back to top</a>)</p> 
 
 
 
