@@ -1,12 +1,9 @@
-import {Divider, Flex, Spinner, useDisclosure} from '@chakra-ui/react';
+import { Flex, useDisclosure} from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import ApiService from './services/apiService';
 import Table from './components/game-elements/Table';
-import Sidebar from './components/Sidebar';
 import Welcome from './components/Welcome';
 import Settings from './components/Settings';
-import Card from './components/game-elements/card';
-import Cards from './components/game-elements/Cards';
 
 export default function App() {
 	const { isOpen: welcomeIsOpen, onClose: welcomeClose, onOpen: welcomeOpen } = useDisclosure();
@@ -35,7 +32,7 @@ export default function App() {
 	const getGameState = async () => {setGameState( await ApiService.getGameState({}))};
 
 	useEffect(() => {
-		// welcomeOpen();
+		welcomeOpen();
 		getGameState();
 	}, []);
 
