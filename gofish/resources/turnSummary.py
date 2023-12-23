@@ -3,7 +3,7 @@ from gofish.resources.response import Response
 from gofish.resources.card import Card
 from gofish.resources.book import Book
 from attr import define, Factory, asdict
-from typing import List
+from typing import List, Union
 
 
 @define
@@ -21,7 +21,7 @@ class TurnSummary:
     seat: int
     request: Request
     response: Response = Factory(Response)
-    drawn: bool | Card = False
+    drawn: Union[bool, Card] = False
     books: List[Book] = Factory(list)
     busted: bool = True
 
