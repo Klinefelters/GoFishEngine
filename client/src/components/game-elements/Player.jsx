@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex } from "@chakra-ui/react";
+import { Avatar, Flex } from "@chakra-ui/react";
 import {useState, useEffect} from "react";
 
 export default function Player ({ seat, summary, settings, position}) {

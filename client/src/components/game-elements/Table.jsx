@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, SimpleGrid, Flex, Spacer } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import Player from "./Player";
 import Cards from "./Cards";
 import Books from "./Books";

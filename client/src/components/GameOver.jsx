@@ -1,7 +1,6 @@
 import { Modal, ModalOverlay, ModalContent, Flex, Button,} from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import ResetButton from './settings-elements/ResetButton'
-// import Logo from './game-elements/Logo'
 
 export default function GameOver({ isOpen, onClose, open, summary, welcomeOpen }) {
     const [lines, setLines] = useState(["Game Over"])
