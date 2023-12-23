@@ -101,7 +101,7 @@ To get a local copy up and running follow these simple example steps.
   ```python
   from gofish import Engine
   from gofish.examplePlayers import RandPlayer
-  from logging import INFO // Echange this with debug to get more info
+  from logging import INFO  # Echange this with debug to get more info
 
   engine = Engine(
       players=[
@@ -138,7 +138,7 @@ To get a local copy up and running follow these simple example steps.
   ```python
   from gofish import Engine
   from gofish.examplePlayers import RandPlayer
-  from logging import INFO // Echange this with debug to get more info
+  from logging import INFO  # Echange this with debug to get more info
   
   engine = Engine(
       players=[
@@ -148,6 +148,7 @@ To get a local copy up and running follow these simple example steps.
       ],
       logLevel=INFO)
   engine.serveGame()
+
   ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
