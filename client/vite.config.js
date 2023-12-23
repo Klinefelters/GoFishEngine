@@ -6,5 +6,6 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: '../gofish/api/static',
+    chunkSizeWarningLimit: 1000,
   },
 })
