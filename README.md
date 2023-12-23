@@ -13,11 +13,9 @@
 <br />
 <div align="center">
   <a href="https://github.com/klinefelters/GoFishEngine">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="images/logo.png" alt="Logo" width="150" height="150">
   </a>
-
 <h3 align="center">GoFishEngine</h3>
-
   <p align="center">
     A python engine to create and test Go Fish bots
     <br />
