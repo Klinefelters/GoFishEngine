@@ -4,9 +4,11 @@ import ApiService from './services/apiService';
 import Table from './components/game-elements/Table';
 import Welcome from './components/Welcome';
 import Settings from './components/Settings';
+import GameOver from './components/GameOver';
 
 export default function App() {
 	const { isOpen: welcomeIsOpen, onClose: welcomeClose, onOpen: welcomeOpen } = useDisclosure();
+	const { isOpen: gameOverIsOpen, onClose: gameOverClose, onOpen: gameOverOpen } = useDisclosure();
 	const { isOpen: settingsIsOpen, onClose: settingsClose, onOpen: settingsOpen } = useDisclosure();
 	const [summary, setSummary] = useState({
 		request: {player: 0, target: 0, rank: "A", suit:"Spades"},
@@ -53,9 +55,8 @@ export default function App() {
 					
 					setSummary( await ApiService.playRound({}))
 					getGameState()
-					if (summary.seat == -1){(await ApiService.resetGame({}))}
 				};
-				if (welcomeIsOpen || settingsIsOpen || settings.buttons.paused.val){
+				if (welcomeIsOpen || settingsIsOpen || settings.buttons.paused.val || gameOverIsOpen){
 					return;
 				}else{
 					playRound();
@@ -65,7 +66,7 @@ export default function App() {
 		return () => {
 			clearInterval(intervalId);
 		};
-	}, [welcomeIsOpen, settingsIsOpen, settings]);
+	}, [welcomeIsOpen, settingsIsOpen, gameOverIsOpen, settings]);
 
 	return(
 		<>
@@ -73,6 +74,7 @@ export default function App() {
 				<Table gameState={gameState} settings={settings} summary={summary}/>
 			</Flex>
 			<Welcome onClose={welcomeClose} isOpen={welcomeIsOpen} />
+			<GameOver onClose={gameOverClose} isOpen={gameOverIsOpen} open={gameOverOpen} summary={summary} welcomeOpen={welcomeOpen} />
 			<Settings settings={settings} setSettings={setSettings} onClose={settingsClose} isOpen={settingsIsOpen} />
 		</>
 	);

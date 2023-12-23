@@ -9,11 +9,11 @@ def main() -> None:
         players=[
             RandPlayer("Random 0"),
             RandPlayer("Random 1"),
-            RandPlayer("Random 2"),
-            RandPlayer("Random 3"),
-            RandPlayer("Random 4"),
-            RandPlayer("Random 5"),
-            RandPlayer("Random 6"),
+            # RandPlayer("Random 2"),
+            # RandPlayer("Random 3"),
+            # RandPlayer("Random 4"),
+            # RandPlayer("Random 5"),
+            # RandPlayer("Random 6"),
         ],
         logLevel=INFO)
 

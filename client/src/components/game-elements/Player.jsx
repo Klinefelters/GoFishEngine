@@ -11,32 +11,31 @@ export default function Player ({ seat, summary, settings, position}) {
 		let newColor = "transparent";
 		let newShown = false;
 		let delay=0;
-		if (!summary.request){
-			console.log("game over");
-		}
-        else if (seat === summary.request.player && summary.request.rank) {
-			newShown = true;
-            newText = `Player ${summary.request.target + 1} do you have any ${summary.request.rank}'s`;
-			newColor = "rgba(0, 0, 255, 0.3)"
-		} else if (seat === summary.request.player && !summary.request.rank) {
-			newShown = true;
-            newText = `Pass`;
-			newColor = "rgba(0, 0, 255, 0.3)"
-        } else if (seat === summary.request.target && !(summary.response.cards.length === 0) && summary.request.rank) {
-            newShown = true;
-			if (summary.response.cards.length > 1){
-				newText = `Here, have my ${summary.response.cards.length} ${summary.request.rank}'s`;
-			}else{
-				newText = `Here, have my ${summary.request.rank}`;
+		if (summary.request){
+			if (seat === summary.request.player && summary.request.rank) {
+				newShown = true;
+				newText = `Player ${summary.request.target + 1} do you have any ${summary.request.rank}'s`;
+				newColor = "rgba(0, 0, 255, 0.3)"
+			} else if (seat === summary.request.player && !summary.request.rank) {
+				newShown = true;
+				newText = `Pass`;
+				newColor = "rgba(0, 0, 255, 0.3)"
+			} else if (seat === summary.request.target && !(summary.response.cards.length === 0) && summary.request.rank) {
+				newShown = true;
+				if (summary.response.cards.length > 1){
+					newText = `Here, have my ${summary.response.cards.length} ${summary.request.rank}'s`;
+				}else{
+					newText = `Here, have my ${summary.request.rank}`;
+				}
+				newColor = "rgba(0, 255, 0, 0.3)"
+				delay=settings.sliders.tickInterval.val/10;
+			} else if (seat === summary.request.target && (summary.response.cards.length === 0) && summary.request.rank) {
+				newShown = true;
+				newText = `Go Fish`;
+				newColor = "rgba(255, 0, 0, 0.3)"
+				delay=settings.sliders.tickInterval.val/5;
 			}
-			newColor = "rgba(0, 255, 0, 0.3)"
-			delay=settings.sliders.tickInterval.val/10;
-        } else if (seat === summary.request.target && (summary.response.cards.length === 0) && summary.request.rank) {
-            newShown = true;
-			newText = `Go Fish`;
-			newColor = "rgba(255, 0, 0, 0.3)"
-			delay=settings.sliders.tickInterval.val/5;
-        }
+		}
 
         const timeoutId = setTimeout(() => {
 			setShown(newShown)

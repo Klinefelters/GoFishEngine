@@ -101,7 +101,7 @@ class Engine:
         and collects any cards they receive. The results of each turn are printed.
         """ # noqa
         app = genApp(self)
-        app.run(host="0.0.0.0", port=8000, )
+        app.run(host="0.0.0.0", port=8000, debug=True)
 
     def playGame(self) -> None:
         """
@@ -249,8 +249,7 @@ class Engine:
         Evaluates the final game state to find the winner(s)
 
         Returns:
-        - name(s) (list[str] | str): The name or list of names of the winners
-        - numBooks (int): The number of books the winner laid down
+        - count (list[int]): The number of books each player laid down
         """
         count = [0 for _ in self.players]
         for book in self.gameState.books:

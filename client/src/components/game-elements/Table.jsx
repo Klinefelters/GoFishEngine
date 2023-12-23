@@ -89,7 +89,7 @@ export default function Table({ gameState, settings, summary }) {
 			}
 			for (let i = 0; i < gameState.pool.cards.length; i++) {
 				const pos = {
-					x:window.innerWidth/2-gameState.pool.cards.length*settings.sliders.cardSize.val/100,
+					x:(window.innerWidth-(settings.sliders.cardSize.val * (1 + 1/6) + 20))/2-gameState.pool.cards.length*settings.sliders.cardSize.val/100,
 					y:window.innerHeight/2-settings.sliders.cardSize.val/2 
 				};
 				const card = gameState.pool.cards[i];
@@ -123,7 +123,11 @@ export default function Table({ gameState, settings, summary }) {
 				size={settings.sliders.cardSize.val} 
 				animationTime={settings.sliders.tickInterval.val/1000} 
 			/>
-			<Books books={gameState.books} size={settings.sliders.cardSize.val} animationTime={settings.sliders.tickInterval.val}/>
+			<Books 
+				books={gameState.books} 
+				size={settings.sliders.cardSize.val} 
+				animationTime={settings.sliders.tickInterval.val}
+			/>
 		</Flex>
 	);
 }

@@ -12,9 +12,11 @@ def genBlueprint(engine) -> Blueprint:
         try:
             tmp = next(engine.yieldGame())
             message = tmp.getDict()
+            message["counts"] = [0, 0]
         except StopIteration:
-            message = {"seat": -1}
-            engine.reset()
+            counts = engine.evaluateGame()
+            message = {"seat": -1, "counts": counts}
+            # engine.reset()
 
         return jsonify(message)
 
