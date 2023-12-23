@@ -9,9 +9,9 @@ engine = Engine(
         RandPlayer("Random 2"),
         RandPlayer("Random 3"),
         RandPlayer("Random 4"),
-        # RandPlayer("Random 5"),
-        # RandPlayer("Random 6"),
-        # RandPlayer("Random 7"),
+        RandPlayer("Random 5"),
+        RandPlayer("Random 6"),
+        RandPlayer("Random 7"),
     ],
     # logLevel=DEBUG
 )

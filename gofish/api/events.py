@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
-from gofish.engine import Engine
+# from gofish.engine import Engine
 
 
-def genBlueprint(engine: Engine) -> Blueprint:
+def genBlueprint(engine) -> Blueprint:
     events_bp = Blueprint('events', __name__)
 
     @events_bp.route('/playRound', methods=['POST'])

@@ -1,5 +1,6 @@
 from gofish.player import Player
-from gofish.resources import *
+from gofish.resources import RANKS, Card, Hand, Pool, Request, Response, TurnSummary, GameState # noqa
+from gofish.api import genApp
 from typing import Iterator
 from time import perf_counter
 import logging
@@ -22,7 +23,7 @@ class Engine:
     - playRound(self) -> None: Executes a round of the game where each player takes a turn.
 
     - broadcast(self, results: Result) -> None: Prints the results of the current round.
-    """
+    """ # noqa
 
     def __init__(self, players: list[Player], **kwargs) -> None:
         """
@@ -35,7 +36,7 @@ class Engine:
 
         Raises:
         - ValueError: If the number of players is less than 2 or greater than 7.
-        """
+        """ # noqa
         logging.basicConfig(
             level=kwargs.get('logLevel', logging.INFO),
             format="%(asctime)s | %(levelname)s: %(message)s",
@@ -82,7 +83,7 @@ class Engine:
 
         During a round, each player takes their turn, requests a card from other players,
         and collects any cards they receive. The results of each turn are printed.
-        """
+        """ # noqa
         while len(self.gameState.books) < 13:
             seat = self.gameState.currentSeat
             summary = self._playTurn(self.players[seat], seat)
@@ -92,13 +93,23 @@ class Engine:
                     self.gameState.currentSeat = 0
             yield summary
 
+    def serveGame(self) -> None:
+        """
+        Starts the game engine.
+
+        During a round, each player takes their turn, requests a card from other players,
+        and collects any cards they receive. The results of each turn are printed.
+        """ # noqa
+        app = genApp(self)
+        app.run(host="0.0.0.0", port=8000, )
+
     def playGame(self) -> None:
         """
         Starts the game engine.
 
         During a round, each player takes their turn, requests a card from other players,
         and collects any cards they receive. The results of each turn are printed.
-        """
+        """ # noqa
         while len(self.gameState.books) < 13:
             for i, player in enumerate(self.players):
                 self.gameState.currentSeat = i
@@ -141,8 +152,7 @@ class Engine:
             rank = ""
             suit = ""
         else:
-            suit = next(
-                (card.suit for card in tmpState.hand.cards if card.rank == rank), None)
+            suit = next((card.suit for card in tmpState.hand.cards if card.rank == rank), None) # noqa
         if target not in tmpState.validTargets:
             logging.critical(
                 f"Player at seat {seat} asked to target {target} " +
@@ -165,8 +175,6 @@ class Engine:
 
         add_cards = perf_counter()
         target_hand = self.gameState.publicHands[target]
-
-        # Use a list comprehension to filter out cards with the specified rank from the target hand
         cards_to_move = [
             card for card in target_hand.cards if card.rank == rank]
 

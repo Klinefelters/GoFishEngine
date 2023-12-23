@@ -1,7 +1,7 @@
 from gofish import Engine
 from examplePlayers.randPlayer import RandPlayer
-from examplePlayers.userPlayer import UserPlayer
-from logging import DEBUG, INFO
+# from examplePlayers.userPlayer import UserPlayer
+from logging import INFO    # DEBUG
 
 
 def main() -> None:
@@ -17,7 +17,8 @@ def main() -> None:
         ],
         logLevel=INFO)
 
-    engine.playGame()
+    # engine.playGame()
+    engine.serveGame()
     # print(engine.evaluatePlayers(runs=1000))
     # while True:
     #     try:
