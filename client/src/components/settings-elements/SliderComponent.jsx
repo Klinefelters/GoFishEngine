@@ -1,11 +1,19 @@
-import { Box, Slider, SliderTrack, SliderFilledTrack, SliderThumb, Text } from '@chakra-ui/react';
+import { Box, Slider, SliderTrack, SliderFilledTrack, SliderThumb, Text, Flex } from '@chakra-ui/react';
+import { RepeatIcon } from '@chakra-ui/icons'
 
 export default function SliderComponent ({ slider, onChange }) {
-    const { val, min, max, step, label, ref } = slider;
+    const { val, reset, min, max, step, label, ref } = slider;
+
+    const handleClick = () => {
+        onChange(reset, ref);
+    };
   
     return (
       <Box p={2}>
-        <Text mb={2} color="white">{label}: {val}</Text>
+        <Flex justifyContent="space-between">
+          <Text mb={2} color="white">{label}: {val}</Text>
+          <RepeatIcon color="white" onClick={handleClick}/>
+        </Flex>
         <Slider
           value={val}
           min={min}

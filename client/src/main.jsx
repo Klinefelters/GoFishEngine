@@ -20,7 +20,14 @@ const fonts = {
 	heading: 'Courier New'
 }
 
-const theme = extendTheme({ colors, fonts })
+const theme = extendTheme({
+	config: {
+	  initialColorMode: 'dark',
+	  useSystemColorMode: false,
+	},
+	colors, 
+	fonts,
+  });
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<ChakraProvider theme={theme}>

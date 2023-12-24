@@ -5,6 +5,7 @@ import Table from './components/game-elements/Table';
 import Welcome from './components/Welcome';
 import Settings from './components/Settings';
 import GameOver from './components/GameOver';
+import ControlButtons from './components/ControlButtons';
 
 export default function App() {
 	const { isOpen: welcomeIsOpen, onClose: welcomeClose, onOpen: welcomeOpen } = useDisclosure();
@@ -17,13 +18,13 @@ export default function App() {
 	});
 	const [settings, setSettings] = useState({
 		sliders:{
-			tickInterval: {val:2000, min:250, max:5000, step:10, label:'Tick Interval (ms)', ref:"tickInterval"},
-			cardSize: {val:100, min:10, max:200, step:1, label:'Card Size (px)', ref:"cardSize"},
+			tickInterval: {val:2000, reset:2000, min:250, max:5000, step:10, label:'Tick Interval (ms)', ref:"tickInterval"},
+			cardSize: {val:100, reset:100, min:10, max:200, step:1, label:'Card Size (px)', ref:"cardSize"},
 		},
 		buttons:{
 			paused: {val: false, trueLabel:'Start', falseLabel:'Pause', ref:'paused', trueColor:'green', falseColor:'red'},
 		},
-		cardVision: "normal"
+		cardVision: "BotView"
 	});
 	const [gameState, setGameState] = useState({
 		pool: {cards: []},
@@ -70,12 +71,23 @@ export default function App() {
 
 	return(
 		<>
-			<Flex bg="brand.green" style = {{flex: 1}} h="100vh" overflow="hidden">
-				<Table gameState={gameState} settings={settings} summary={summary} welcomeIsOpen={welcomeIsOpen}/>
+			<Flex 
+				bg="radial-gradient(circle,  #1E5C3A, rgba(0,0,0,1))"
+				style = {{flex: 1}} 
+				h="100vh" 
+				overflow="hidden"
+			>
+				<Table 
+					gameState={gameState} 
+					settings={settings} 
+					summary={summary} 
+					welcomeIsOpen={welcomeIsOpen}
+				/>
 			</Flex>
+			<ControlButtons getGameState={getGameState} settings={settings} setSettings={setSettings} settingsOpen={settingsOpen} />
 			<Welcome onClose={welcomeClose} isOpen={welcomeIsOpen} />
-			<GameOver onClose={gameOverClose} isOpen={gameOverIsOpen} open={gameOverOpen} summary={summary} welcomeOpen={welcomeOpen} />
-			<Settings settings={settings} setSettings={setSettings} onClose={settingsClose} isOpen={settingsIsOpen} />
+			<GameOver getGameState={getGameState} onClose={gameOverClose} isOpen={gameOverIsOpen} open={gameOverOpen} summary={summary} welcomeOpen={welcomeOpen} />
+			<Settings getGameState={getGameState} settings={settings} setSettings={setSettings} onClose={settingsClose} isOpen={settingsIsOpen} />
 		</>
 	);
 }

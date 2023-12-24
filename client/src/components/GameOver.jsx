@@ -2,7 +2,7 @@ import { Modal, ModalOverlay, ModalContent, Flex, Button,} from '@chakra-ui/reac
 import { useEffect, useState } from 'react'
 import ResetButton from './settings-elements/ResetButton'
 
-export default function GameOver({ isOpen, onClose, open, summary, welcomeOpen }) {
+export default function GameOver({ isOpen, onClose, open, summary, welcomeOpen, getGameState }) {
     const [lines, setLines] = useState(["Game Over"])
     useEffect(() => {
         if (summary.seat === -1){
@@ -35,7 +35,7 @@ export default function GameOver({ isOpen, onClose, open, summary, welcomeOpen }
                 <Flex direction="column" justifyContent="center" alignItems="center" h="300px" textColor={"white"}>
                     {lines.map((line, index) => <p key={index}>{line}</p>)}
                     <Flex h="10px" m="10px" >
-                        <ResetButton />
+                        <ResetButton getGameState={getGameState} />
                         <Button ml="10px"onClick={handleClose}>Close</Button>
                     </Flex>
                 </Flex>
