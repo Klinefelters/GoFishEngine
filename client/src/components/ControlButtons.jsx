@@ -27,9 +27,9 @@ export default function ControlButtons({getGameState, settings, setSettings, set
             left="10px"
             padding="10px"
         >
-            <IconButton onClick={settingsOpen} icon={<SettingsIcon />}/>
-            <IconButton onClick={playPause} icon={settings.buttons.paused.val ? <FaPlay /> : <FaPause/>}/>
-            <IconButton onClick={reset} icon={<RepeatIcon />}/>
+            <IconButton variant='outline' colorScheme="teal" onClick={settingsOpen} icon={<SettingsIcon />}/>
+            <IconButton variant='outline' colorScheme="teal" onClick={playPause} icon={settings.buttons.paused.val ? <FaPlay /> : <FaPause/>}/>
+            <IconButton variant='outline' colorScheme="teal" onClick={reset} icon={<RepeatIcon />}/>
         </Flex>
     )
 }
