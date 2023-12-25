@@ -111,7 +111,7 @@ class Engine:
         and collects any cards they receive. The results of each turn are printed.
         """  # noqa
         app = genColabApp(self)
-        app.run(host="0.0.0.0", port=8000, debug=True)
+        app.run()
 
     def playGame(self) -> None:
         """
