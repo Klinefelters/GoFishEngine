@@ -1,6 +1,6 @@
 from gofish.player import Player
 from gofish.resources import RANKS, Card, Hand, Pool, Request, Response, TurnSummary, GameState  # noqa
-from gofish.api import genApp
+from gofish.api import genApp, genColabApp
 from typing import Iterator, List
 from time import perf_counter
 import logging
@@ -101,6 +101,16 @@ class Engine:
         and collects any cards they receive. The results of each turn are printed.
         """  # noqa
         app = genApp(self)
+        app.run(host="0.0.0.0", port=8000, debug=True)
+
+    def serveColabGame(self) -> None:
+        """
+        Starts the game engine.
+
+        During a round, each player takes their turn, requests a card from other players,
+        and collects any cards they receive. The results of each turn are printed.
+        """  # noqa
+        app = genColabApp(self)
         app.run(host="0.0.0.0", port=8000, debug=True)
 
     def playGame(self) -> None:
