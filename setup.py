@@ -16,7 +16,8 @@ setup(
         'mpi4py',
         'attrs',
         'flask',
-        'flask-cors'
+        'flask-cors',
+        'flask_ngrok'
     ],
 
     classifiers=[
