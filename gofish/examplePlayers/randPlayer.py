@@ -1,4 +1,3 @@
-from typing import Union
 from gofish.player import Player
 from gofish.resources import PlayerState
 from typing import Union
