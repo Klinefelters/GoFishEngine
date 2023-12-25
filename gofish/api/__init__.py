@@ -1,3 +1,3 @@
-from gofish.api.app import genApp
+from gofish.api.app import genApp, genColabApp
 
-__all__ = ["genApp"]
+__all__ = ["genApp", "genColabApp"]
