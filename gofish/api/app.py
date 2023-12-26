@@ -1,11 +1,12 @@
 from flask import Flask, render_template
 from flask_cors import CORS
-from flask_ngrok import run_with_ngrok
+# from flask_ngrok import run_with_ngrok
 from gofish.api.events import genBlueprint
+
 
 def genApp(engine) -> Flask:
     events_bp = genBlueprint(engine)
-    app = Flask(__name__, static_url_path='', static_folder='static', template_folder='static') # noqa
+    app = Flask(__name__, static_url_path='', static_folder='static', template_folder='static')  # noqa
     CORS(app, resources={
          r"*": {"origins": ["http://localhost:5173", "http://localhost:8000",
                             "http://0.0.0.0:5173", "http://0.0.0.0:8000"]}})
@@ -16,7 +17,8 @@ def genApp(engine) -> Flask:
         return render_template("index.html")
     return app
 
+
 def genColabApp(engine) -> Flask:
     app = genApp(engine)
-    run_with_ngrok(app)
+    # run_with_ngrok(app)
     return app

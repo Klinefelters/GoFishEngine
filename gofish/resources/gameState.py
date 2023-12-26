@@ -1,3 +1,4 @@
+from gofish.resources.card import Card
 from gofish.resources.hand import Hand
 from gofish.resources.pool import Pool
 from gofish.resources.book import Book
@@ -46,6 +47,11 @@ class GameState:
             books=self.books.copy(),  # Copy the books
             currentSeat=player_index
         )
+
+        # Fill each public hand with cards of rank "" and suit "" until the length matches the corresponding hand
+        for i, public_hand in enumerate(hidden_state.publicHands):
+            while len(public_hand.cards) < len(self.hands[i].cards):
+                public_hand.cards.append(Card(rank="", suit=""))
 
         return hidden_state
 

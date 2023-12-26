@@ -17,7 +17,7 @@ setup(
         'attrs',
         'flask',
         'flask-cors',
-        'flask_ngrok'
+        'torch',
     ],
 
     classifiers=[
