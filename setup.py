@@ -18,6 +18,7 @@ setup(
         'flask',
         'flask-cors',
         'torch',
+        'numpy',
     ],
 
     classifiers=[
