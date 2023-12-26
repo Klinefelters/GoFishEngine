@@ -1,8 +1,7 @@
+from gofish.resources import PlayerState, RANKS
+from gofish import GoFishModel, Player
 from typing import Union
-from gofish.player import Player
-from gofish.resources import PlayerState, GoFishModel, RANKS
-from typing import Union
-import torch
+from torch import softmax, argmax
 
 
 class TorchPlayer(Player):
@@ -18,22 +17,22 @@ class TorchPlayer(Player):
         rank_output, target_output = self.model(state_tensor)
 
         # Convert the outputs to probabilities
-        rank_probs = torch.softmax(rank_output, dim=0)
-        target_probs = torch.softmax(target_output, dim=0)
+        rank_probs = softmax(rank_output, dim=0)
+        target_probs = softmax(target_output, dim=0)
         rank_probs[13] = 0
 
         # Choose the rank and target with the highest probability
-        rank = torch.argmax(rank_probs).item()
-        target = torch.argmax(target_probs).item()
+        rank = argmax(rank_probs).item()
+        target = argmax(target_probs).item()
 
         # Ensure that the chosen rank is in the player's hand
         while RANKS[rank] not in state.validRanks:
             rank_probs[rank] = -1
-            rank = torch.argmax(rank_probs).item()
+            rank = argmax(rank_probs).item()
 
         # Ensure that the chosen target is not the player themselves
         while target == state.currentSeat:
             target_probs[target] = 0
-            target = torch.argmax(target_probs).item()
+            target = argmax(target_probs).item()
 
         return RANKS[rank], target

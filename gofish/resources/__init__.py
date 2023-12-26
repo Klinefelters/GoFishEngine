@@ -8,8 +8,7 @@ from gofish.resources.response import Response
 from gofish.resources.turnSummary import TurnSummary
 from gofish.resources.playerState import PlayerState
 from gofish.resources.gameState import GameState
-from gofish.resources.model import GoFishModel
 
 
 __all__ = ["SUITS", "RANKS", "Card", "Book", "Hand", "Pool", "Request",
-           "Response", "TurnSummary", "PlayerState", "GameState", "GoFishModel"]
+           "Response", "TurnSummary", "PlayerState", "GameState"]
