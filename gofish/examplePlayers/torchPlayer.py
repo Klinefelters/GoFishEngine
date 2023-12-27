@@ -32,7 +32,7 @@ class TorchPlayer(Player):
 
         # Ensure that the chosen target is not the player themselves
         while target == state.currentSeat:
-            target_probs[target] = 0
+            target_probs[target] = -1
             target = argmax(target_probs).item()
 
         return RANKS[rank], target

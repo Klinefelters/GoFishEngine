@@ -19,6 +19,7 @@ setup(
         'flask-cors',
         'torch',
         'numpy',
+        'progress'
     ],
 
     classifiers=[

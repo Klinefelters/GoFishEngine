@@ -1,9 +1,9 @@
-from torch import relu
+from torch import relu, save, load
 from torch.nn import Module, Linear
 
 
 class GoFishModel(Module):
-    def __init__(self, num_players: int):
+    def __init__(self, num_players: int, weights: str = None):
         super(GoFishModel, self).__init__()
 
         # Define the layers of the model
@@ -12,6 +12,8 @@ class GoFishModel(Module):
         self.rank_output = Linear(64, 14)  # Output layer for rank
         self.target_output = Linear(
             64, num_players)  # Output layer for target
+        if weights is not None:
+            self.load_weights(weights)
 
     def forward(self, x):
         x = relu(self.fc1(x))
@@ -22,3 +24,9 @@ class GoFishModel(Module):
         target_output = self.target_output(x)
 
         return rank_output, target_output
+
+    def save_weights(self, path: str):
+        save(self.state_dict(), path)
+
+    def load_weights(self, path: str):
+        self.load_state_dict(load(path))
