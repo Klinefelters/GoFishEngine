@@ -45,7 +45,6 @@ def train(episodes: int = 100, evals: int = 10, name: str = "torch", numPlayers:
                 bar.next()
                 break
 
-    torchPlayer.model.save_weights("after_weights.pt")
     bar.finish()
     print("Evaluating...")
     results = engine.evaluatePlayers(runs=evals)
