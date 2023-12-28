@@ -1,6 +1,5 @@
 from flask import Flask, render_template
 from flask_cors import CORS
-# from flask_ngrok import run_with_ngrok
 from gofish.api.events import genBlueprint
 
 
@@ -13,12 +12,6 @@ def genApp(engine) -> Flask:
     app.register_blueprint(events_bp)
 
     @app.route("/")
-    def home():
+    def _():
         return render_template("index.html")
-    return app
-
-
-def genColabApp(engine) -> Flask:
-    app = genApp(engine)
-    # run_with_ngrok(app)
     return app

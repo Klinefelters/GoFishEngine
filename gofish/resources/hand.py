@@ -11,24 +11,24 @@ class Hand:
     Represents a player's hand of cards.
 
     Attributes:
-    - cards (List[Card]): The list of cards in the hand.
+        cards (List[Card]): The list of cards in the hand.
 
     Methods:
-    - pullRanks(rank: str) -> List[Card]: Find all cards of a given rank and pull them from the hand.
-    - pullBooks(rank: str) -> List[Books]: Find all books and pull them from the hand.
-    """
+        pullRanks(rank: str) -> List[Card]: Find all cards of a given rank and pull them from the hand.
+        pullBooks(rank: str) -> List[Books]: Find all books and pull them from the hand.
+    """  # noqa: E501
     cards: List[Card] = Factory(list)
 
     def pullRanks(self, rank: str) -> List[Card]:
         """
         Find all cards of a given rank in the hand and remove them from the hand.
 
-        Parameters:
-        - rank (str): The rank of the cards to be pulled.
+        Args:
+            rank (str): The rank of the cards to be pulled.
 
         Returns:
         List[Card]: The list of cards with the specified rank that were pulled from the hand.
-        """
+        """  # noqa: E501
         found = [card for card in self.cards if card.rank == rank]
         self.cards = [card for card in self.cards if card.rank != rank]
         return found
@@ -37,12 +37,12 @@ class Hand:
         """
         Find all books of in the players hand.
 
-        Parameters:
-        - player (int): The seat of the player's hand. This will mark all of the books for scoring
+        Args:
+            player (int): The seat of the player's hand. This will mark all of the books for scoring
 
         Returns:
-        List[Book]: The list of books pulled from the hand.
-        """
+            List[Book]: The list of books pulled from the hand.
+        """  # noqa: E501
         books = []
 
         for rank in set(card.rank for card in self.cards):
@@ -64,5 +64,5 @@ class Hand:
 
         Returns:
             str: rank of the most common rank in the hand
-        """
+        """  # noqa: E501
         return Counter([card.rank for card in self.cards]).most_common(1)[0][0]

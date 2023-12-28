@@ -11,10 +11,10 @@ class Pool:
     Represents a pool of cards in the game.
 
     Attributes:
-    - cards (List[Card]): The list of cards in the pool.
+        cards (List[Card]): The list of cards in the pool.
 
     Methods:
-    - generate() -> None: Generate all cards in the pool and shuffle them.
+        generate() -> None: Generate all cards in the pool and shuffle them.
     """
     cards: List[Card] = Factory(list)
 

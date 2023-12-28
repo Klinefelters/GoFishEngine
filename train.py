@@ -29,11 +29,12 @@ def train(episodes: int = 100, evals: int = 10, name: str = "torch", numPlayers:
                     state = gameState.getPlayerState(summary.seat).getTensor()
                     action = RANKS.index(
                         summary.request.rank), summary.request.target
-                    reward = 30 * len(summary.response.cards) + \
-                        50 * len(summary.books)
-                    # next_state = engine.gameState.getPlayerState(
-                    #     summary.seat).getTensor()
-                    target_q_value = reward + 30 * int(summary.busted)
+                    reward = .3 * len(summary.response.cards) + \
+                        2 * len(summary.books)
+                    next_state = engine.gameState.getPlayerState(
+                        summary.seat).getTensor()
+                    target_q_value = reward + \
+                        (.99 * torchPlayer.model(next_state)[0].max().item())
                     index, _ = action
                     predicted_q_value = torchPlayer.model(state)[0][index]
                     loss = (predicted_q_value - target_q_value).pow(2)
@@ -54,4 +55,4 @@ def train(episodes: int = 100, evals: int = 10, name: str = "torch", numPlayers:
 
 
 if __name__ == "__main__":
-    train(episodes=10000, evals=100, name="test", numPlayers=2)
+    train(episodes=50000, evals=500, name="test", numPlayers=2)

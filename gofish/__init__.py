@@ -1,3 +1,13 @@
+"""
+This module provides access to the main components of the Go Fish game.
+
+Available Components:
+    Engine: The game engine for a Go Fish card game.
+    GoFishModel: The model for a Go Fish card game.
+    Player: The base class for a player in the Go Fish game.
+    resources: The module containing resources for the Go Fish game.
+    api: The module containing the application generation functions for the Go Fish game.
+"""
 
 from gofish.engine import Engine
 from gofish.model import GoFishModel

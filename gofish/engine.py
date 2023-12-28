@@ -1,6 +1,6 @@
 from gofish.player import Player
-from gofish.resources import RANKS, Card, Hand, Pool, Request, Response, TurnSummary, GameState  # noqa
-from gofish.api import genApp, genColabApp
+from gofish.resources import RANKS, Card, Hand, Pool, Request, Response, TurnSummary, GameState  # noqa: 501
+from gofish.api import genApp
 from typing import Iterator, List
 from time import perf_counter
 import logging
@@ -11,32 +11,34 @@ class Engine:
     The game engine for a Go Fish card game.
 
     Attributes:
-    - players (List[Player]): The list of players in the game.
-    - numPlayers (int): The number of players in the game.
-    - gameState (GameState): The current state of the game.
+        players (List[Player]): The list of players in the game.
+        numPlayers (int): The number of players in the game.
+        gameState (GameState): The current state of the game.
 
     Methods:
-    - __init__(self, players: List[Player]) -> None: Initializes the game engine with the given players.
+        __init__(self, players: List[Player]) -> None: Initializes the game engine with the given players.
 
-    - deal(self) -> None: Deals cards to the players at the start of the game.
+        deal(self) -> None: Deals cards to the players at the start of the game.
 
-    - playRound(self) -> None: Executes a round of the game where each player takes a turn.
+        playRound(self) -> None: Executes a round of the game where each player takes a turn.
 
-    - broadcast(self, results: Result) -> None: Prints the results of the current round.
-    """  # noqa
+        broadcast(self, results: Result) -> None: Prints the results of the current round.
+    """  # noqa: E501
 
     def __init__(self, players: List[Player], **kwargs) -> None:
         """
         Initializes the game engine with the given players.
 
         Parameters:
-        - players (list[Player]): The list of players in the game.
-        - logLevel (int) = INFO : The level of debugging. Constants from the logging module.
-        - saveFile (str) = None : The name of the file for logs to be saved to. 
+            numPlayers (int): The number of players in the game.
+            players (list[Player]): The list of players in the game.
+            gameState (GameState): The current state of the game.
+            logLevel (int) = INFO : The level of debugging. Constants from the logging module.
+            saveFile (str) = None : The name of the file for logs to be saved to. 
 
         Raises:
-        - ValueError: If the number of players is less than 2 or greater than 7.
-        """  # noqa
+            ValueError: If the number of players is less than 2 or greater than 7.
+        """  # noqa: E501
         logging.basicConfig(
             level=kwargs.get('logLevel', logging.INFO),
             format="%(asctime)s | %(levelname)s: %(message)s",
@@ -68,7 +70,7 @@ class Engine:
         Deals cards to the players at the start of the game.
 
         The number of cards dealt depends on the number of players in the game.
-        """
+        """  # noqa: E501
         if self.numPlayers == 2:
             n = 7
         else:
@@ -83,7 +85,7 @@ class Engine:
 
         During a round, each player takes their turn, requests a card from other players,
         and collects any cards they receive. The results of each turn are printed.
-        """  # noqa
+        """  # noqa: E501
         while len(self.gameState.books) < 13:
             seat = self.gameState.currentSeat
             summary = self._playTurn(self.players[seat], seat)
@@ -95,31 +97,20 @@ class Engine:
 
     def serveGame(self) -> None:
         """
-        Starts the game engine.
+        Serves the Game as a Flask App on the localhost.
 
-        During a round, each player takes their turn, requests a card from other players,
-        and collects any cards they receive. The results of each turn are printed.
-        """  # noqa
+        Control the engine and ui from https://localhost:8000 in your web browser.
+        """  # noqa: E501
         app = genApp(self)
         app.run(host="0.0.0.0", port=8000, debug=True)
 
-    def serveColabGame(self) -> None:
-        """
-        Starts the game engine.
-
-        During a round, each player takes their turn, requests a card from other players,
-        and collects any cards they receive. The results of each turn are printed.
-        """  # noqa
-        app = genColabApp(self)
-        app.run()
-
     def playGame(self) -> None:
         """
-        Starts the game engine.
+        Runs a game with only the logging to the terminal.
 
         During a round, each player takes their turn, requests a card from other players,
         and collects any cards they receive. The results of each turn are printed.
-        """  # noqa
+        """  # noqa: E501
         while len(self.gameState.books) < 13:
             for i, player in enumerate(self.players):
                 self.gameState.currentSeat = i
@@ -140,7 +131,7 @@ class Engine:
 
         Returns:
             TurnSummary: A summary object of the turn. Check resources.
-        """
+        """  # noqa: E501
         turn_start = perf_counter()
         tmpState = self.gameState.getPlayerState(seat)
         if len(tmpState.validRanks) < 1:
@@ -259,8 +250,8 @@ class Engine:
         Evaluates the final game state to find the winner(s)
 
         Returns:
-        - count (list[int]): The number of books each player laid down
-        """
+            count (list[float]): The number of books each player laid down
+        """  # noqa: E501
         count = [0 for _ in self.players]
         for book in self.gameState.books:
             count[book.player] += 1
@@ -274,9 +265,9 @@ class Engine:
         Evaluates the final game state to find the winner(s)
 
         Returns:
-        - name(s) (list[str] | str): The name or list of names of the winners
-        - numBooks (int): The number of books the winner laid down
-        """
+            name(s) (list[str] | str): The name or list of names of the winners
+            numBooks (int): The number of books the winner laid down
+        """  # noqa: E501
         totalBooks = len(RANKS) * runs
         booksScored = [0 for _ in self.players]
 
@@ -290,6 +281,7 @@ class Engine:
         return [float(score/totalBooks) for score in booksScored]
 
     def reset(self) -> None:
+        """Resets the game engine to the initial state."""
         [player.reset() for player in self.players]
         del (self.gameState)
         pool = Pool(cards=[])

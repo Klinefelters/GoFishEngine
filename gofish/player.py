@@ -9,7 +9,7 @@ class Player:
         be overwritten when inherited!
 
         Parameters:
-        - name (str): The name of the player.
+            name (str): The name of the player.
         """
         self.name = name
 
@@ -40,7 +40,7 @@ class Player:
         rank of card to request.
 
         Parameters:
-        - state (PlayerState): The current state of the game for the player.
+            state (PlayerState): The current state of the game for the player.
 
         Returns:
         str: The rank of the card the player requests.

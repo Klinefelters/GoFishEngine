@@ -11,16 +11,16 @@ class PlayerState:
     Represents the state of a player in the game.
 
     Attributes:
-    - hand (Hand): The player's hand.
-    - validRanks (List[str]): The valid ranks that the player can request.
-    - validTargets (List[int]): The valid seats that the player can target.
-    - publicHands (List[Hand]): The list of public hands in the game.
-    - pool (int): The number of cards in the pool.
-    - books (List[Book]): The list of books the player has formed.
-    - currentSeat (int): The index of the current player.
+        hand (Hand): The player's hand.
+        validRanks (List[str]): The valid ranks that the player can request.
+        validTargets (List[int]): The valid seats that the player can target.
+        publicHands (List[Hand]): The list of public hands in the game.
+        pool (int): The number of cards in the pool.
+        books (List[Book]): The list of books the player has formed.
+        currentSeat (int): The index of the current player.
 
     Methods:
-    - getDict() -> dict: Returns a dictionary representation of the Player State.
+        getDict() -> dict: Returns a dictionary representation of the Player State.
     """
     hand: Hand = Factory(Hand)
     validRanks: List[str] = Factory(list)
@@ -35,7 +35,7 @@ class PlayerState:
         Retrieve a dictionary representation of the Player State.
 
         Returns:
-        - dict: The current state of the game as a dictionary
+            dict: The current state of the game as a dictionary
         """
         return asdict(self)
 
@@ -44,7 +44,7 @@ class PlayerState:
         Retrieve a tensor representation of the PlayerState.
 
         Returns:
-        - Tensor: The current state of the game as a tensor
+            Tensor: The current state of the game as a tensor
         """
         # Convert hand to tensor
         hand_tensor = zeros(14)

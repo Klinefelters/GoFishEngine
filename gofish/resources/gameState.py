@@ -13,15 +13,15 @@ class GameState:
     Represents the state of the game.
 
     Attributes:
-    - hands (List[Hand]): The list of hands in the game.
-    - publicHands (List[Hand]): The list of public hands in the game.
-    - pool (Pool): The pool of cards in the game.
-    - books (List[Book]): The list of books formed in the game.
-    - currentSeat (int): The index of the current player.
+        hands (List[Hand]): The list of hands for each player in the game.
+        publicHands (List[Hand]): The list of public hands for each player in the game.
+        pool (Pool): The pool of cards that are not yet drawn in the game.
+        books (List[Book]): The list of books formed by players in the game.
+        currentSeat (int): The index of the player who is currently taking their turn.
 
     Methods:
-    - getPlayerState(player_index: int) -> PlayerState: Returns a version of the game state with private information hidden.
-    - getDict() -> dict: Returns a dictionary representation of the Game State.
+        getPlayerState(player_index: int) -> PlayerState: Returns a version of the game state from the perspective of the specified player, with private information hidden.
+        getDict() -> dict: Returns a dictionary representation of the Game State.
     """
     hands: List[Hand] = Factory(list)
     publicHands: List[Hand] = Factory(list)
@@ -31,10 +31,13 @@ class GameState:
 
     def getPlayerState(self, player_index: int) -> PlayerState:
         """
-        Get the state from the view of a specified player
+        Get the state from the view of a specified player.
+
+        Args:
+            player_index (int): The index of the player.
 
         Returns:
-        - PlayerState: The state of the game with hidden private information
+            PlayerState: The state of the game from the perspective of the specified player, with private information hidden.
         """
         allRanks = [card.rank for card in self.hands[player_index].cards.copy()]
         hidden_state = PlayerState(
@@ -60,6 +63,6 @@ class GameState:
         Retrieve a dictionary representation of the Game State.
 
         Returns:
-        - dict: The current state of the game as a dictionary
+            dict: The current state of the game as a dictionary.
         """
         return asdict(self)
