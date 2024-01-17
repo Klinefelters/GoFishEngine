@@ -12,6 +12,6 @@ def genApp(engine) -> Flask:
     app.register_blueprint(events_bp)
 
     @app.route("/")
-    def _():
+    def _home():
         return render_template("index.html")
     return app

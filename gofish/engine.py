@@ -115,7 +115,7 @@ class Engine:
             for i, player in enumerate(self.players):
                 self.gameState.currentSeat = i
 
-                while True:
+                while True and len(self.gameState.books) < 13:
                     summary = self._playTurn(player, i)
                     if summary.busted:
                         break

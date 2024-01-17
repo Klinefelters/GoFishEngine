@@ -5,7 +5,7 @@ def genBlueprint(engine) -> Blueprint:
     events_bp = Blueprint('events', __name__)
 
     @events_bp.route('/playRound', methods=['POST'])
-    def _():
+    def _playRound():
         data = request.get_json()
         # Handle data here...
         try:
@@ -20,13 +20,13 @@ def genBlueprint(engine) -> Blueprint:
         return jsonify(message)
 
     @events_bp.route('/getGameState', methods=['POST'])
-    def _():
+    def _getGameState():
         data = request.get_json()
         # Handle data here...
         return jsonify(engine.gameState.getDict())
 
     @events_bp.route('/resetGame', methods=['POST'])
-    def _():
+    def _resetGame():
         data = request.get_json()
         # Handle data here...
         engine.reset()
