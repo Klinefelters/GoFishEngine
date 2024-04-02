@@ -55,4 +55,4 @@ def train(episodes: int = 100, evals: int = 10, name: str = "torch", numPlayers:
 
 
 if __name__ == "__main__":
-    train(episodes=50000, evals=500, name="test", numPlayers=2)
+    train(episodes=5000, evals=50, name="test", numPlayers=2)

@@ -1,17 +1,21 @@
 from gofish import Engine
 from gofish.examplePlayers import RandPlayer
 from testPlayer import TestPlayer
-from logging import INFO    # DEBUG
+from logging import INFO, DEBUG
 
 
 def main() -> None:
     engine = Engine(
         players=[
-            TestPlayer("Test"),
+            RandPlayer("Random"),
+            RandPlayer("Random"),
+            RandPlayer("Random"),
+            RandPlayer("Random"),
+            RandPlayer("Random"),
             RandPlayer("Random"),
             # Add up to 5 more players here
         ],
-        logLevel=INFO)
+        logLevel=DEBUG)
 
     # engine.playGame()
     engine.serveGame()

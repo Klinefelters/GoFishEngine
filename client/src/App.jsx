@@ -84,7 +84,7 @@ export default function App() {
 					welcomeIsOpen={welcomeIsOpen}
 				/>
 			</Flex>
-			<ControlButtons getGameState={getGameState} settings={settings} setSettings={setSettings} settingsOpen={settingsOpen} />
+			<ControlButtons getGameState={getGameState} setSummary={setSummary} settings={settings} setSettings={setSettings} settingsOpen={settingsOpen} />
 			<Welcome onClose={welcomeClose} isOpen={welcomeIsOpen} />
 			<GameOver getGameState={getGameState} onClose={gameOverClose} isOpen={gameOverIsOpen} open={gameOverOpen} summary={summary} welcomeOpen={welcomeOpen} />
 			<Settings getGameState={getGameState} settings={settings} setSettings={setSettings} onClose={settingsClose} isOpen={settingsIsOpen} />

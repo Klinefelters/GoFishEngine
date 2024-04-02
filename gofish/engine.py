@@ -99,9 +99,10 @@ class Engine:
         """
         Serves the Game as a Flask App on the localhost.
 
-        Control the engine and ui from https://localhost:8000 in your web browser.
+        Control the engine and ui from http://localhost:8000 in your web browser.
         """  # noqa: E501
         app = genApp(self)
+        print("Application running on http://localhost:8000")
         app.run(host="0.0.0.0", port=8000, debug=True)
 
     def playGame(self) -> None:
@@ -115,7 +116,7 @@ class Engine:
             for i, player in enumerate(self.players):
                 self.gameState.currentSeat = i
 
-                while True and len(self.gameState.books) < 13:
+                while len(self.gameState.books) < 13:
                     summary = self._playTurn(player, i)
                     if summary.busted:
                         break
@@ -140,7 +141,7 @@ class Engine:
                 self.gameState.hands[seat].cards.append(drawn)
                 tmpState = self.gameState.getPlayerState(seat)
             except IndexError:
-                summary = TurnSummary(seat, Request(seat, seat))
+                summary = TurnSummary(seat, Request(seat, seat), busted=True)
                 return summary
         check_cards = perf_counter()
         rank, target = player.takeTurn(state=tmpState)
@@ -206,6 +207,7 @@ class Engine:
                 else:
                     self.gameState.publicHands[seat].cards.append(drawn)
             except IndexError:
+                print("No Cards to be drawn")
                 busted = True
         checking_bust = perf_counter()
         books = self.gameState.hands[seat].pullBooks(seat)
