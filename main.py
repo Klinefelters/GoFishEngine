@@ -1,6 +1,5 @@
 from gofish import Engine
 from gofish.examplePlayers import RandPlayer
-from testPlayer import TestPlayer
 from logging import INFO, DEBUG
 
 
