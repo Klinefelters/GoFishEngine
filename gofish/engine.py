@@ -3,6 +3,7 @@ from gofish.resources import RANKS, Card, Hand, Pool, Request, Response, TurnSum
 from gofish.api import genApp
 from typing import Iterator, List
 from time import perf_counter
+from webbrowser import open_new
 import logging
 
 
@@ -95,15 +96,15 @@ class Engine:
                     self.gameState.currentSeat = 0
             yield summary
 
-    def serveGame(self) -> None:
+    def serveGame(self, debug=False) -> None:
         """
         Serves the Game as a Flask App on the localhost.
 
         Control the engine and ui from http://localhost:8000 in your web browser.
         """  # noqa: E501
         app = genApp(self)
-        print("Application running on http://localhost:8000")
-        app.run(host="0.0.0.0", port=8000, debug=True)
+        open_new("http://localhost:8000")
+        app.run(host="0.0.0.0", port=8000, debug=debug)
 
     def playGame(self) -> None:
         """

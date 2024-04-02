@@ -8,10 +8,13 @@ export default function GameOver({ isOpen, onClose, open, summary, welcomeOpen, 
         if (summary.seat === -1){
             open()
             let temp = [""]
-            const winningPlayerIndex = summary.counts.indexOf(Math.max(...summary.counts)) + 1
-            temp.push(`Player ${winningPlayerIndex} won!`)
+            const maxCount = Math.max(...summary.counts)
             for (let i = 0; i < summary.counts.length; i++){
-                temp.push(`Player ${i+1}: ${summary.counts[i]} points`)
+                if (summary.counts[i] === maxCount){
+                    temp.push(`**${summary.names[i]}: ${summary.counts[i]} points**`)
+                }else{
+                    temp.push(`${summary.names[i]}: ${summary.counts[i]} points`)
+                }
             }
             setLines(temp)
         }

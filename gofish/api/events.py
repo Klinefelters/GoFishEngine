@@ -14,7 +14,8 @@ def genBlueprint(engine) -> Blueprint:
             message["counts"] = [0, 0]
         except StopIteration:
             counts = engine.evaluateGame()
-            message = {"seat": -1, "counts": counts}
+            message = {"seat": -1, "counts": counts,
+                       "names": [p.name for p in engine.players]}
             # engine.reset()
 
         return jsonify(message)
