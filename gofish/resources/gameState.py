@@ -40,11 +40,12 @@ class GameState:
             PlayerState: The state of the game from the perspective of the specified player, with private information hidden.
         """
         allRanks = [card.rank for card in self.hands[player_index].cards.copy()]
+        validTargets = [i for i in range(
+            len(self.hands)) if i != player_index and self.publicHands[i].cards]
         hidden_state = PlayerState(
             hand=Hand(self.hands[player_index].cards.copy()),  # Copy the Hand
             validRanks=list(set(allRanks)),
-            validTargets=[i for i in range(
-                len(self.hands)) if i != player_index],
+            validTargets=validTargets,
             publicHands=self.publicHands.copy(),  # Copy the public information
             pool=len(self.pool.cards),  # Send Empty Pool
             books=self.books.copy(),  # Copy the books

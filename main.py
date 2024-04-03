@@ -13,7 +13,7 @@ def main() -> None:
             RandPlayer("Random5"),
             RandPlayer("Random6"),
             RandPlayer("Random7"),
-            # Add up to 5 more players here
+            # Must be 2-7 players
         ],
         logLevel=DEBUG)
 
