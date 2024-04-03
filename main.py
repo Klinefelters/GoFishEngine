@@ -6,13 +6,13 @@ from logging import INFO, DEBUG
 def main() -> None:
     engine = Engine(
         players=[
-            RandPlayer("Random1"),
-            RandPlayer("Random2"),
-            RandPlayer("Random3"),
-            RandPlayer("Random4"),
-            RandPlayer("Random5"),
-            RandPlayer("Random6"),
-            RandPlayer("Random7"),
+            RandPlayer("Random 1"),
+            RandPlayer("Random 2"),
+            RandPlayer("Random 3"),
+            RandPlayer("Random 4"),
+            RandPlayer("Random 5"),
+            RandPlayer("Random 6"),
+            RandPlayer("Random 7"),
             # Must be 2-7 players
         ],
         logLevel=INFO)
