@@ -15,7 +15,7 @@ def main() -> None:
             RandPlayer("Random7"),
             # Must be 2-7 players
         ],
-        logLevel=DEBUG)
+        logLevel=INFO)
 
     # engine.playGame()
     engine.serveGame()
